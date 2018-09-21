@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Sacar cita
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="calendar.today()">
+        <ion-icon name="calendar"></ion-icon>
+        </button>
+  </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  
+  <ion-calendar #calendar lang="es"
+  (onDaySelect)="onDaySelect($event)"
+ 
+  ></ion-calendar>
+  <h1 class="h1" *ngIf="!hr">Horario Disponible</h1>
+  <h1 class="h1" *ngIf="hr">Horario No Disponible</h1>
+
+  <div class="hr"  *ngIf="!hr">
+
+  <h3>Mañana</h3>
+<ion-list>
+      <button ion-item (click)="hola()" *ngFor="let i of maniana">
+        <p>{{i.hora}}</p>
+        <p>Citas disponibles : {{i.libres}}</p>
+      </button>
+</ion-list>   
+
+<h3>Tarde</h3>
+<ion-list> 
+    <button  ion-item (click)="hola()" *ngFor="let i of tarde">
+      <p>{{i.hora}}</p>
+      <p>Citas disponibles : {{i.libres}}</p>
+    </button>
+</ion-list> 
+</div>
+</ion-content>

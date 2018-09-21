@@ -1,0 +1,7 @@
+{
+  "name": "prevenir_express",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

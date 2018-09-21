@@ -1,0 +1,159 @@
+<!--
+  Generated template for the PublicarServicioPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title *ngIf="!editar">Publicar servicio</ion-title>
+    <ion-title *ngIf="editar">Editar servicio</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+<!-- <img src="{{ruta}}" alt="ND"> -->
+ <div class="galeria">
+        <ion-item>
+          <button ion-button icon-left round block (click)="openGalery()">
+            <ion-icon name="image"></ion-icon>
+            Abrir galeria</button>
+        </ion-item>
+      </div>
+          <div id="LoadedImages" *ngIf="imagenes">
+           <ion-item *ngFor="let item of imagenes; let i = index">
+               <ion-icon name="close-circle" (click)="borrarFoto(i)"></ion-icon>
+               <img [src]="item.base64Image" class="imagenes">
+               <img *ngIf="editar" [src]="imgsEdit.ruta" class="imagenes">
+           </ion-item>
+         </div>
+
+  <form [formGroup]="datos" (ngSubmit)="registrar()"  novalidate>
+ 
+    <div class="info">
+        <h2>¿Donde vas a prestar tu servicio?</h2>
+        <ion-item>
+            <ion-label>Departamento</ion-label>
+            <ion-select multiple="false" (ionChange)="departamentoSelect($event);">
+              <ion-option *ngFor="let dpt of dptms;let i = index" [value]="dpt.id_departamento"  >{{dpt.nombre}}</ion-option>     
+            </ion-select>
+          </ion-item>
+          
+           <ion-item>
+            <ion-label>Municipio</ion-label>
+            <ion-select multiple="false" (ionChange)="municipioSelect($event);">
+                <ion-option *ngFor="let mnp of mncps;let i = index" [value]="mnp.id_municipio"  >{{mnp.nombre}}</ion-option>
+              
+            </ion-select>
+          </ion-item>
+
+         
+      </div>
+
+    <div class="info">
+        <h2>Cuentanos mas !</h2>
+        <ion-item>
+          <ion-label>Categorias</ion-label>
+          <ion-select multiple="false" (ionChange)="categoriaSelect($event);">
+            <ion-option *ngFor="let cate of ctgas;let i = index" [value]="cate.id_categoria"  >{{cate.nombre}}</ion-option>     
+          </ion-select>
+        </ion-item>
+          <!-- <ion-item>
+            <input type="text" formControlName="id_usr">
+          </ion-item> -->
+          <ion-item>
+              <ion-label floating>
+                
+                Nombre servicio</ion-label>
+              <ion-input type="text" formControlName="nombre"></ion-input>
+             
+            </ion-item>
+            <ion-item *ngIf="datos.get('nombre').errors && datos.get('nombre').dirty">
+              <p color="danger" ion-text *ngIf="datos.get('nombre').hasError('required')">* El campo es requerido</p>
+              <p color="danger" ion-text *ngIf="datos.get('nombre').hasError('minlength')">Cantidad minima de caracteres (4)</p>
+            </ion-item>
+          <ion-item>
+            <ion-label floating>
+             
+              Duracion aprox. cita en Mins.</ion-label>
+            <ion-input type="number" formControlName="duracion"></ion-input>
+        
+          </ion-item>
+          <ion-item *ngIf="datos.get('duracion').errors && datos.get('duracion').dirty">
+            <p color="danger" ion-text *ngIf="datos.get('duracion').hasError('required')">* El campo es requerido</p>
+            <p color="danger" ion-text *ngIf="datos.get('duracion').hasError('max')">Duración maxima en minutos (60)</p>
+            <p color="danger" ion-text *ngIf="datos.get('duracion').hasError('min')">Duración minima en minutos (15)</p>
+          </ion-item>
+          <ion-item>
+            <ion-label>Max citas / hora</ion-label>
+            <ion-select multiple="false" (ionChange)="maxCitasSelect($event);">
+                <ion-option value="1">1</ion-option>
+                <ion-option value="2">2</ion-option>
+                <ion-option value="3">3</ion-option>
+                <ion-option value="4">4</ion-option>
+                <ion-option value="5">5</ion-option>
+              
+            </ion-select>
+          </ion-item>
+          <ion-item>
+              <ion-label floating>Precio a particulares</ion-label>
+              <ion-input type="number" formControlName="precio"></ion-input>
+            </ion-item>
+            <ion-item *ngIf="datos.get('precio').errors && datos.get('precio').dirty">
+              <p color="danger" ion-text *ngIf="datos.get('precio').hasError('required')">* El campo es requerido</p>
+              <p color="danger" ion-text *ngIf="datos.get('precio').hasError('min')">Cantidad minima ($0)</p>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>Descuento clientes prevenir</ion-label>
+                <ion-input type="number" formControlName="descuento"></ion-input>
+              </ion-item>
+              <ion-item *ngIf="datos.get('descuento').errors && datos.get('descuento').dirty">
+                <p color="danger" ion-text *ngIf="datos.get('descuento').hasError('min')">Cantidad minima (0)</p>
+                <p color="danger" ion-text *ngIf="datos.get('descuento').hasError('max')">Cantidad maxima (100)</p>
+              </ion-item>
+              <ion-item>
+                <ion-label floating>link video - www.youtube.com</ion-label>
+                <ion-input type="text" formControlName="video"></ion-input>
+              </ion-item>
+              <ion-item>
+                  <ion-label floating>Descripción del servicio</ion-label>
+                  <ion-textarea class="txt_area" formControlName="descripcion"></ion-textarea>
+                </ion-item>
+                <ion-item *ngIf="datos.get('descripcion').errors && datos.get('descripcion').dirty">
+                    <p color="danger" ion-text *ngIf="datos.get('descripcion').hasError('required')">* El campo es requerido</p>
+                  <p color="danger" ion-text *ngIf="datos.get('descripcion').hasError('minlength')">Cantidad minima caracteres (40)</p>
+                </ion-item>
+      </div>
+ 
+      <div class="logo">
+      <ion-item>
+        <img src="/assets/imgs/logo-grande-negro.png" alt="">
+      </ion-item>
+    </div>
+      <ion-item ion-col col-12>
+          <ion-label>Acepto terminos y condiciones</ion-label>
+          <ion-checkbox required formControlName="check"></ion-checkbox>
+        </ion-item>
+    
+    
+      <ion-item>
+          <button *ngIf="!editar" ion-button icon-left block round [disabled]="!this.datos.valid">
+            <ion-icon name="send"></ion-icon>
+            Registrar servicio
+          </button>
+          <button *ngIf="editar" ion-button icon-left block round [disabled]="!this.datos.valid">
+            <ion-icon name="send"></ion-icon>
+           Editar servicio
+          </button>
+         
+        </ion-item>
+  
+   
+  </form>
+
+ 
+
+</ion-content>

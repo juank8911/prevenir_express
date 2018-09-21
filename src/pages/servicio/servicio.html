@@ -1,0 +1,95 @@
+<!--
+  Generated template for the ServicioPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{servicio.nombre}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+<ion-card>
+	
+	<ion-list>
+	<ion-item>
+	<ion-avatar item-start>
+	<img src="{{logo}}">
+	</ion-avatar>
+	<h1>{{ nombre }}</h1>
+	<h2>{{nit}}</h2>
+	<p>{{descripcion}}</p>
+	</ion-item>
+	<button ion-button round block color="danger" (click)="goToMaspublicaciones()">Mas publicaciones</button>
+   </ion-list>
+	
+	</ion-card>
+
+
+
+<ion-card>
+	<img src="/assets/imgs/slider/banner1a.png" alt="">
+	<br>
+	Categoria
+	<br>
+	<br>
+	<h4>Precio : ${{servicio.precio}}</h4>
+	<br>
+	<p><ion-icon name="thumbs-up">&nbsp;Descuento</ion-icon>&nbsp;{{servicio.descuento}}</p>
+	<br>
+	<h3>Total : ${{servicio.precio_cliente_prevenir}}</h3>
+	<br>
+	<h4>Duracion en minutos : {{servicio.duracion}}</h4>
+	<br>
+	<p>{{ servicio.id_servicio }}</p>
+	<p>{{ servicio.descripcion }}</p>
+</ion-card>
+<ion-card>
+	<ion-card-header>
+		Conoscanos
+	</ion-card-header>
+	 <ion-card-content>
+		<div class="embed-container">
+			<iframe width="560" height="315" [src]="video | youtube" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+		</div>
+	</ion-card-content> 
+	
+</ion-card>
+
+<ion-card>
+	<ion-card-header>
+		Contactenos
+	</ion-card-header>
+	<ion-card-content>
+		<ion-item>
+           <ion-avatar item-start>
+            <img src="{{logo}}">
+           </ion-avatar>
+           <h2>{{nombre}}</h2>
+           <p>Proveedor</p>		
+		</ion-item>
+		
+		<form [formGroup]="datos" (ngSubmit)="mensaje()"  novalidate>
+		<ion-input type="text" placeholder="Nombre" readonly></ion-input>
+  		<ion-input type="text" placeholder="asdasda@gmail.com" readonly></ion-input>	
+  		<ion-textarea type="text" class="txt_area" formControlName="descripcion" placeholder="Mensaje"></ion-textarea>
+  		<button ion-button icon-left color="danger" class="btnCitas" [disabled]="!this.datos.valid" round block>
+	    <ion-icon name="mail"></ion-icon>
+        Mensaje
+		</button>
+	</form>
+
+	</ion-card-content>
+</ion-card>
+<ion-fab>
+	<button ion-fab icon-center (click)="sacarCita(idProduct)">
+		<ion-icon name="medkit"></ion-icon>
+	</button>
+</ion-fab>
+</ion-content>

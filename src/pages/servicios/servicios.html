@@ -1,0 +1,53 @@
+<!--
+  Generated template for the ServiciosPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+  	<!-- <button ion-button menuToggle>
+  		<ion-icon name="menu"></ion-icon>
+  	</button> -->
+    <ion-title>Servicios</ion-title>
+    <ion-title>{{viewTitle}}</ion-title>
+    <ion-buttons end>
+        <button ion-button (click)="popover($event)">
+          <ion-icon name="settings"></ion-icon>
+          </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div>
+    <ion-searchbar (ionInput)="getItems($event)" (ionCancel)="cancel($event)" [ngModel]="busqueda" placeholder="Buscar"></ion-searchbar>
+    <!-- <ion-searchbar (ionCancel)="cancel($event)" [ngModel]="busqueda" placeholder="Buscar"></ion-searchbar> -->
+  </div>
+  <div>
+    
+    <ion-list>
+    <button *ngFor="let servicio of services " icon-left (click)="goToServicio(servicio)" color="white">
+        <ion-card>
+            <img src="/assets/imgs/slider/banner1a.png" alt="">
+            <br>
+            <br>
+            <h1>{{servicio.nombre}}</h1>
+            <div class="p">
+            <p ><ion-icon name="thumbs-up">&nbsp;Descuento de : {{servicio.descuento}}%</ion-icon></p>
+            <br>
+            <h2 >Categoria:&nbsp; {{servicio.categoria}}</h2>
+            <p>{{ servicio.id_servicios }}</p>
+            <p >{{ servicio.descripcion }}</p>
+          </div>
+          </ion-card>
+    </button>     
+    </ion-list>
+
+  </div>
+
+ 
+</ion-content>
