@@ -15,7 +15,7 @@ export class YoutubePipe implements PipeTransform {
    */
 
    constructor(private dom:DomSanitizer){
-   
+
    }
   transform(value) {
    return this.dom.bypassSecurityTrustResourceUrl(value);
