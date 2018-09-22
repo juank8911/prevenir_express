@@ -124,7 +124,7 @@ export class FormularioRegistroPage {
               else{
                 //usuario ya existe
                 this.loading.dismiss();
-                this.presentToast("El usuario ya se encuentra registrado");
+                this.presentToast("El correo ya se encuentra registrado");
               }
             
             },(error)=>{
@@ -190,7 +190,7 @@ export class FormularioRegistroPage {
             }
             else{
               this.loading.dismiss();
-              this.presentToast("El usuario ya se encuentra registrado");
+              this.presentToast("El correo ya se encuentra registrado");
             }
         
           },(error)=>{

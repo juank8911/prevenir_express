@@ -96,12 +96,12 @@ export class FormularioRegistroAdminPage {
         }
         else{
           this.loading.dismiss();
-          this.presentToast("El usuario ya se encuentra registrado");
+          this.presentToast("El correo ya se encuentra registrado");
         }
     
       },(error)=>{
         this.loading.dismiss();
-        this.presentToast("error en la conexion intentalo mas tarde")}
+        this.presentToast("Error en la conexion intentalo mas tarde")}
     );
     
   }

@@ -31,6 +31,284 @@
            </ion-item>
          </div>
 
+
+         <h2 class="h2">Horario de atención</h2>
+         <div class="horarios">
+            
+           <div id="f1">
+             <ion-card>
+               <ion-card-header>
+                 <ion-item>Horario 1</ion-item>
+                 </ion-card-header>
+               <ion-card-content>
+             <p>Dias</p>
+             <ion-item>
+                 <ion-label>Dias</ion-label>
+                  <ion-select *ngFor="let i of ds" multiple="true" (ionChange)="diasF1($event);" >
+                 </ion-select>
+               </ion-item>
+           
+             <p id="manana">Mañana</p>
+            
+             <ion-grid>
+               <ion-row>
+                 <ion-col>
+                   <ion-item>
+                   <ion-label>Desde</ion-label>
+                   <ion-select (ionChange)="mdesdef1($event);">
+                     <ion-option value="6:00">6 a.m</ion-option>
+                     <ion-option value="7:00">7 a.m</ion-option>
+                     <ion-option value="8:00">8 a.m</ion-option>
+                     <ion-option value="9:00">9 a.m</ion-option>
+                     <ion-option value="10:00">10 a.m</ion-option>
+                     <ion-option value="11:00">11 a.m</ion-option>
+                     <ion-option value="12:00">12 a.m</ion-option>
+                   </ion-select>
+                 </ion-item>
+                 </ion-col>
+                 <ion-col>
+                   <ion-item>
+                   <ion-label>Hasta</ion-label>
+                   <ion-select (ionChange)="mhastaf1($event);">
+                    <ion-option value="6:00">6 a.m</ion-option>
+                    <ion-option value="7:00">7 a.m</ion-option>
+                    <ion-option value="8:00">8 a.m</ion-option>
+                    <ion-option value="9:00">9 a.m</ion-option>
+                    <ion-option value="10:00">10 a.m</ion-option>
+                    <ion-option value="11:00">11 a.m</ion-option>
+                    <ion-option value="12:00">12 a.m</ion-option>
+                 </ion-select>
+                </ion-item>
+                 </ion-col>
+               </ion-row>
+             </ion-grid>
+           
+             <p>Tarde</p>
+            
+             <ion-grid>
+                 <ion-row>
+                   <ion-col>
+                     <ion-item>
+                     <ion-label>Desde</ion-label>
+                     <ion-select (ionChange)="tdesdef1($event);">
+                         <ion-option value="13:00">1 p.m</ion-option>
+                         <ion-option value="14:00">2 p.m</ion-option>
+                         <ion-option value="15:00">3 p.m</ion-option>
+                         <ion-option value="16:00">4 p.m</ion-option>
+                         <ion-option value="17:00">5 p.m</ion-option>
+                         <ion-option value="18:00">6 p.m</ion-option>
+                         <ion-option value="19:00">7 p.m</ion-option>
+                     </ion-select>
+                   </ion-item>
+                   </ion-col>
+                   <ion-col>
+                     <ion-item>
+                     <ion-label>Hasta</ion-label>
+                  <ion-select (ionChange)="thastaf1($event);">
+                    <ion-option value="13:00">1 p.m</ion-option>
+                    <ion-option value="14:00">2 p.m</ion-option>
+                    <ion-option value="15:00">3 p.m</ion-option>
+                    <ion-option value="16:00">4 p.m</ion-option>
+                    <ion-option value="17:00">5 p.m</ion-option>
+                    <ion-option value="18:00">6 p.m</ion-option>
+                    <ion-option value="19:00">7 p.m</ion-option>
+                   </ion-select>
+                  </ion-item>
+                   </ion-col>
+                 </ion-row>
+               </ion-grid>
+             </ion-card-content>
+             </ion-card>
+         </div>
+       
+         <div id="f2" *ngIf="f2">
+             <ion-card>
+                 <ion-card-header>
+                   <ion-item>Horario 2</ion-item>
+                   </ion-card-header>
+                 <ion-card-content>
+             <p>Dias</p>
+             <ion-item>
+                 <ion-label>Dias</ion-label>
+                  <ion-select multiple="true" (ionChange)="diasF2($event);">
+                        <ion-option value="lunes">lunes</ion-option>
+                        <ion-option value="martes">martes</ion-option>
+                        <ion-option value="miércoles">miércoles</ion-option>
+                        <ion-option value="jueves">jueves</ion-option>
+                        <ion-option value="viernes">viernes</ion-option>
+                        <ion-option value="sábado">sábado</ion-option>
+                        <ion-option value="domingo">domingo</ion-option>
+                 </ion-select>
+               </ion-item>
+           
+             <p id="manana">Mañana</p>
+             <ion-grid>
+               <ion-row>
+                 <ion-col>
+                   <ion-item>
+                   <ion-label>Desde</ion-label>
+                   <ion-select (ionChange)="mdesdef2($event);">
+                    <ion-option value="6:00">6 a.m</ion-option>
+                    <ion-option value="7:00">7 a.m</ion-option>
+                    <ion-option value="8:00">8 a.m</ion-option>
+                    <ion-option value="9:00">9 a.m</ion-option>
+                    <ion-option value="10:00">10 a.m</ion-option>
+                    <ion-option value="11:00">11 a.m</ion-option>
+                    <ion-option value="12:00">12 a.m</ion-option>
+                   </ion-select>
+                 </ion-item>
+                 </ion-col>
+                 <ion-col>
+                   <ion-item>
+                   <ion-label>Hasta</ion-label>
+                <ion-select (ionChange)="mhastaf2($event);">
+                  <ion-option value="6:00">6 a.m</ion-option>
+                  <ion-option value="7:00">7 a.m</ion-option>
+                  <ion-option value="8:00">8 a.m</ion-option>
+                  <ion-option value="9:00">9 a.m</ion-option>
+                  <ion-option value="10:00">10 a.m</ion-option>
+                  <ion-option value="11:00">11 a.m</ion-option>
+                  <ion-option value="12:00">12 a.m</ion-option>
+                 </ion-select>
+                </ion-item>
+                 </ion-col>
+               </ion-row>
+             </ion-grid>
+             <p>Tarde</p>
+             <ion-grid>
+                 <ion-row>
+                   <ion-col>
+                     <ion-item>
+                     <ion-label>Desde</ion-label>
+                     <ion-select (ionChange)="tdesdef2($event);">
+                      <ion-option value="13:00">1 p.m</ion-option>
+                      <ion-option value="14:00">2 p.m</ion-option>
+                      <ion-option value="15:00">3 p.m</ion-option>
+                      <ion-option value="16:00">4 p.m</ion-option>
+                      <ion-option value="17:00">5 p.m</ion-option>
+                      <ion-option value="18:00">6 p.m</ion-option>
+                      <ion-option value="19:00">7 p.m</ion-option>
+                     </ion-select>
+                   </ion-item>
+                   </ion-col>
+                   <ion-col>
+                     <ion-item>
+                     <ion-label>Hasta</ion-label>
+                  <ion-select (ionChange)="thastaf2($event);">
+                    <ion-option value="13:00">1 p.m</ion-option>
+                    <ion-option value="14:00">2 p.m</ion-option>
+                    <ion-option value="15:00">3 p.m</ion-option>
+                    <ion-option value="16:00">4 p.m</ion-option>
+                    <ion-option value="17:00">5 p.m</ion-option>
+                    <ion-option value="18:00">6 p.m</ion-option>
+                    <ion-option value="19:00">7 p.m</ion-option>
+                   </ion-select>
+                  </ion-item>
+                   </ion-col>
+                 </ion-row>
+               </ion-grid>
+               </ion-card-content>
+               </ion-card>
+             </div>
+       
+       
+             <div id="f3" *ngIf="f3">
+                 <ion-card>
+                     <ion-card-header>
+                       <ion-item>Horario 3</ion-item>
+                       </ion-card-header>
+                     <ion-card-content>
+                 <p>Dias</p>
+                 <ion-item>
+                     <ion-label>Dias</ion-label>
+                      <ion-select multiple="true" (ionChange)="diasF3($event);">
+                       <ion-option value="lunes">lunes</ion-option>
+                       <ion-option value="martes">martes</ion-option>
+                       <ion-option value="miércoles">miércoles</ion-option>
+                       <ion-option value="jueves">jueves</ion-option>
+                       <ion-option value="viernes">viernes</ion-option>
+                       <ion-option value="sábado">sábado</ion-option>
+                       <ion-option value="domingo">domingo</ion-option>
+                     </ion-select>
+                   </ion-item>
+               
+                 <p id="manana">Mañana</p>
+                 <ion-grid>
+                   <ion-row>
+                     <ion-col>
+                       <ion-item>
+                       <ion-label>Desde</ion-label>
+                       <ion-select (ionChange)="mdesdef3($event);">
+                        <ion-option value="6:00">6 a.m</ion-option>
+                        <ion-option value="7:00">7 a.m</ion-option>
+                        <ion-option value="8:00">8 a.m</ion-option>
+                        <ion-option value="9:00">9 a.m</ion-option>
+                        <ion-option value="10:00">10 a.m</ion-option>
+                        <ion-option value="11:00">11 a.m</ion-option>
+                        <ion-option value="12:00">12 a.m</ion-option>
+                       </ion-select>
+                     </ion-item>
+                     </ion-col>
+                     <ion-col>
+                       <ion-item>
+                       <ion-label>Hasta</ion-label>
+                    <ion-select (ionChange)="mhastaf3($event);">
+                      <ion-option value="6:00">6 a.m</ion-option>
+                      <ion-option value="7:00">7 a.m</ion-option>
+                      <ion-option value="8:00">8 a.m</ion-option>
+                      <ion-option value="9:00">9 a.m</ion-option>
+                      <ion-option value="10:00">10 a.m</ion-option>
+                      <ion-option value="11:00">11 a.m</ion-option>
+                      <ion-option value="12:00">12 a.m</ion-option>
+                     </ion-select>
+                    </ion-item>
+                     </ion-col>
+                   </ion-row>
+                 </ion-grid>
+                 <p>Tarde</p>
+                 <ion-grid>
+                     <ion-row>
+                       <ion-col>
+                         <ion-item>
+                         <ion-label>Desde</ion-label>
+                         <ion-select (ionChange)="tdesdef3($event);">
+                          <ion-option value="13:00">1 p.m</ion-option>
+                          <ion-option value="14:00">2 p.m</ion-option>
+                          <ion-option value="15:00">3 p.m</ion-option>
+                          <ion-option value="16:00">4 p.m</ion-option>
+                          <ion-option value="17:00">5 p.m</ion-option>
+                          <ion-option value="18:00">6 p.m</ion-option>
+                          <ion-option value="19:00">7 p.m</ion-option>  
+                         </ion-select>
+                       </ion-item>
+                       </ion-col>
+                       <ion-col>
+                         <ion-item>
+                         <ion-label>Hasta</ion-label>
+                      <ion-select (ionChange)="thastaf3($event);">
+                        <ion-option value="13:00">1 p.m</ion-option>
+                        <ion-option value="14:00">2 p.m</ion-option>
+                        <ion-option value="15:00">3 p.m</ion-option>
+                        <ion-option value="16:00">4 p.m</ion-option>
+                        <ion-option value="17:00">5 p.m</ion-option>
+                        <ion-option value="18:00">6 p.m</ion-option>
+                        <ion-option value="19:00">7 p.m</ion-option>
+                       </ion-select>
+                      </ion-item>
+                       </ion-col>
+                     </ion-row>
+                   </ion-grid>
+                   </ion-card-content>
+                   </ion-card>
+                 </div>
+       <ion-item>
+         <button ion-button round block icon-left (click)="agregarHorario()" [disabled]="!dis">
+           <ion-icon name="add"></ion-icon>
+           Agregar otro horario</button>
+       </ion-item>
+           
+         </div>
+
   <form [formGroup]="datos" (ngSubmit)="registrar()"  novalidate>
  
     <div class="info">
@@ -54,7 +332,7 @@
       </div>
 
     <div class="info">
-        <h2>Cuentanos mas !</h2>
+        <h2>Cuentanos más !</h2>
         <ion-item>
           <ion-label>Categorias</ion-label>
           <ion-select multiple="false" (ionChange)="categoriaSelect($event);">
@@ -127,7 +405,7 @@
                   <p color="danger" ion-text *ngIf="datos.get('descripcion').hasError('minlength')">Cantidad minima caracteres (40)</p>
                 </ion-item>
       </div>
- 
+     
       <div class="logo">
       <ion-item>
         <img src="/assets/imgs/logo-grande-negro.png" alt="">
@@ -154,6 +432,6 @@
    
   </form>
 
- 
+  <button ion-button (click)="info()">Info</button>
 
 </ion-content>
