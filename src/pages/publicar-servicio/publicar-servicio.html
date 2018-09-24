@@ -44,6 +44,7 @@
              <p>Dias</p>
              <ion-item>
                  <ion-label>Dias</ion-label>
+<<<<<<< HEAD
                   <ion-select multiple="true" (ionChange)="diasF1($event);">
                       <ion-option value="lunes">lunes</ion-option>
                       <ion-option value="martes">martes</ion-option>
@@ -52,6 +53,9 @@
                       <ion-option value="viernes">viernes</ion-option>
                       <ion-option value="sábado">sábado</ion-option>
                       <ion-option value="domingo">domingo</ion-option>
+=======
+                  <ion-select *ngFor="let i of ds" multiple="true" (ionChange)="diasF1($event);" >
+>>>>>>> ae4c06e8d1c90fce8a6189804af107aa10d88c7d
                  </ion-select>
                </ion-item>
            

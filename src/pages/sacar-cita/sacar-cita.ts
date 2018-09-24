@@ -23,6 +23,7 @@ export class SacarCitaPage {
   maniana;
   tarde;
   hr:boolean = false;
+<<<<<<< HEAD
   ds:boolean = false;
   mn:boolean;
   td:boolean;
@@ -32,6 +33,10 @@ export class SacarCitaPage {
   
   constructor(public navCtrl: NavController, public navParams: NavParams,private api : ApiProvider,
     private global : Global,private alertCtrl: AlertController,private toastCtrl:ToastController) {
+=======
+
+  constructor(public navCtrl: NavController, public navParams: NavParams,private api : ApiProvider) {
+>>>>>>> ae4c06e8d1c90fce8a6189804af107aa10d88c7d
 
     this.id_usuario= this.global.id_usuario;
     this.id_usuario = parseInt(this.id_usuario);
@@ -39,23 +44,34 @@ export class SacarCitaPage {
     console.log(this.id_servicio);
     this.today = moment(new Date().toISOString()).format('YYYY-M-DD');
     this.horarios();
+<<<<<<< HEAD
     
       
+=======
+
+>>>>>>> ae4c06e8d1c90fce8a6189804af107aa10d88c7d
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SacarCitaPage');
   }
 
+<<<<<<< HEAD
+=======
+  hola(){
+    console.log("hola");
+  }
+
+>>>>>>> ae4c06e8d1c90fce8a6189804af107aa10d88c7d
   onDaySelect(ev)
   {
     console.log(ev);
-      
+
     let numero = parseInt(ev.month)+1;
     this.fecha = ev.year + "-" + numero + "-" +ev.date;
 
      let today = new Date(this.today).getTime();
-      let fecha = new Date(this.fecha).getTime();
+     let fecha = new Date(this.fecha).getTime();
 
       if(fecha >= today)
       {
@@ -64,7 +80,7 @@ export class SacarCitaPage {
         this.hr=true;
       }
       this.horarios();
-  
+
   }
 
   horarios(){
@@ -77,6 +93,7 @@ export class SacarCitaPage {
         this.maniana = hors.maniana;
         let hors2 = data[1];
         this.tarde = hors2.tardes;
+<<<<<<< HEAD
     
         let dis = this.maniana[0]
         let dispo = this.tarde[0];
@@ -95,6 +112,10 @@ export class SacarCitaPage {
           this.td = false;
         }
       
+=======
+        console.log(hors2);
+
+>>>>>>> ae4c06e8d1c90fce8a6189804af107aa10d88c7d
       },(err)=>{console.log(err);});
     }else{
       this.f = this.fecha;
@@ -104,6 +125,7 @@ export class SacarCitaPage {
         this.maniana = hors.maniana;
         let hors2 = data[1];
         this.tarde = hors2.tardes;
+<<<<<<< HEAD
         
        
         let dis = this.maniana[0];
@@ -122,10 +144,12 @@ export class SacarCitaPage {
         {
           this.td = false;
         }
+=======
+>>>>>>> ae4c06e8d1c90fce8a6189804af107aa10d88c7d
 
       },(err)=>{console.log(err);});
     }
-  
+
   }
 
   hola(hora,tarde){

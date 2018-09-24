@@ -28,7 +28,8 @@ plugins/
 plugins/android.json
 plugins/ios.json
 www/
-
+package-lock.json
+/src/app/global.ts
 # Trash data
 $RECYCLE.BIN/
 .DS_Store
