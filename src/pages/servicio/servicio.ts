@@ -39,7 +39,7 @@ export class ServicioPage {
     private api:ApiProvider,private formBuilder: FormBuilder,private global : Global) {
       // this.user();
       this.servicio = navParams.get('servicio');
-    // console.log(this.servicio);
+    console.log(this.servicio);
 
     this.datos = this.formBuilder.group({                 
       descripcion: ['',[Validators.required,Validators.minLength(15)]],    
@@ -91,8 +91,8 @@ export class ServicioPage {
 
 sacarCita(idProduct)
 {
-  console.log('Servicio'+idProduct);
-  this.navCtrl.push(SacarCitaPage,{servicio:this.servicio})
+  this.navCtrl.push(SacarCitaPage,{id_servicio:idProduct});
+
 }
 
 goToMaspublicaciones(){

@@ -84,7 +84,7 @@ export class ApiProvider {
     
           this.http.post(this.apiUrl+'/events',datos, {headers : headers})
             .subscribe(res => {
-              // console.log("Toy aquiiiii PROVIDERRRRRRRRRRR");
+              
               resolve(res);
             }, (err) => {
               reject(err);
@@ -122,10 +122,10 @@ export class ApiProvider {
       return this.http.get(this.apiUrl+'/user/'+id);
     }
 
-    getHorario(fecha){
-      console.log(fecha);
-      console.log("AQUIIIIIIIIIIIIIIIIII");
-      return this.http.get(this.apiUrl+'/citas/'+fecha+'/2');
+    getHorario(fecha,id){
+      // console.log(fecha);
+      // console.log("AQUIIIIIIIIIIIIIIIIII");
+      return this.http.get(this.apiUrl+'/citas/'+fecha+'/'+id);
     }
 
      /////////////////////////////////////// DELETE ///////////////////////////////////////////////

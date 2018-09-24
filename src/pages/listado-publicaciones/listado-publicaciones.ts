@@ -43,7 +43,7 @@ export class ListadoPublicacionesPage {
   getPublicaciones(){
     this.loading = this.loadingCtrl.create({
       spinner: 'hide',
-      content: "Espera un momento<br>estamos eliminando el servicio... ",
+      content: "Espera un momento<br>estamos cargando información... ",
       duration: 3000
     });
     this.loading.present();
@@ -53,6 +53,8 @@ export class ListadoPublicacionesPage {
       this.loading.dismiss();
       console.log(this.publicaciones);
     },(err)=>{
+      this.loading.dismiss();
+      this.presentToast("Error en la conexión intentalo más tarde");
       console.log(err);
     });
   }

@@ -4,8 +4,8 @@
       Sacar cita
     </ion-title>
     <ion-buttons end>
-      <button ion-button (click)="calendar.today()">
-        <ion-icon name="calendar"></ion-icon>
+      <button ion-button (click)="calendar.today()" icon-left>
+        <ion-icon name="calendar"></ion-icon> Hoy
         </button>
   </ion-buttons>
   </ion-navbar>
@@ -20,23 +20,39 @@
   ></ion-calendar>
   <h1 class="h1" *ngIf="!hr">Horario Disponible</h1>
   <h1 class="h1" *ngIf="hr">Horario No Disponible</h1>
+  <h3 *ngIf="!hr">Mañana</h3>
+  <div class="cerrado" *ngIf="mn">
+  <img  class="img_cerrado"  src="/assets/imgs/cerrado.jpg" alt="">
+  </div>
+
 
   <div class="hr"  *ngIf="!hr">
 
-  <h3>Mañana</h3>
+ 
+  
 <ion-list>
-      <button ion-item (click)="hola()" *ngFor="let i of maniana">
+    <div *ngFor="let i of maniana">
+      <button ion-item (click)="hola(i.hora)" *ngIf="!mn" [disabled]="i.libres === 0" >
         <p>{{i.hora}}</p>
         <p>Citas disponibles : {{i.libres}}</p>
       </button>
+    </div>   
 </ion-list>   
 
 <h3>Tarde</h3>
-<ion-list> 
-    <button  ion-item (click)="hola()" *ngFor="let i of tarde">
+<ion-list>
+<div *ngFor="let i of tarde">
+    <button ion-item (click)="hola(i.hora,'tarde')" *ngIf="!td" [disabled]="i.libres === 0" >
       <p>{{i.hora}}</p>
       <p>Citas disponibles : {{i.libres}}</p>
     </button>
-</ion-list> 
+  </div>
+</ion-list>
+
+<div class="cerrado" *ngIf="td">
+    <img  class="img_cerrado"  src="/assets/imgs/cerrado.jpg" alt="">
+    </div>
+
 </div>
+
 </ion-content>

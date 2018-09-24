@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams ,PopoverController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams ,PopoverController,Loading,
+  LoadingController,ToastController} from 'ionic-angular';
 import { ApiProvider } from '../../providers/api/api';
 import { ServicioPage } from '../servicio/servicio';
 import {PopoverFiltroPage} from '../popover-filtro/popover-filtro';
@@ -19,9 +20,10 @@ import {PopoverFiltroPage} from '../popover-filtro/popover-filtro';
 export class ServiciosPage {
   services //varible para cargar los datos de servicio
  ServicePage;
+ loading: Loading;
  busqueda :string ="";
   constructor(public navCtrl: NavController, public navParams: NavParams, public api:ApiProvider,
-    private popoverCtr : PopoverController) {
+    private popoverCtr : PopoverController,public loadingCtrl: LoadingController,private toastCtrl:ToastController) {
 
   }
 
@@ -30,10 +32,19 @@ export class ServiciosPage {
   }
 
   servicios(){
+    this.loading = this.loadingCtrl.create({
+      spinner: 'hide',
+      content: "Espera un momento<br>estamos cargando información... ",
+      duration: 3000
+    });
+    this.loading.present();
     this.api.getServicios().subscribe((data)=>{
       this.services=data;
+      this.loading.dismiss();
       console.log(this.services);
     },(error)=>{
+      this.loading.dismiss();
+      this.presentToast("Error en la conexión intentalo más tarde")
       console.log(error);
     });
   }
@@ -72,4 +83,13 @@ cancel(ev:any){
       console.log(data);
     });
   } 
+
+  presentToast(msg) {
+    let toast = this.toastCtrl.create({
+      message: msg,
+      duration: 2000
+    });
+    toast.present();
+  }
+
 }
