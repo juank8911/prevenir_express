@@ -440,13 +440,8 @@ info(){
       if(!this.dias){
         console.log("Por favor selecciona dias f1")
       }
-<<<<<<< HEAD
       else if(!this.dias2){console.log("Por favor selecciona dias f2")}
       else if(!this.dias3){console.log("Por favor selecciona dias f3")}
-=======
-      else if(!this.dias2){console.log("Por favor selecciona dias f1")}
-      else if(!this.dias3){console.log("Por favor selecciona dias f1")}
->>>>>>> ae4c06e8d1c90fce8a6189804af107aa10d88c7d
 
       if(mhasta < mdesde || thasta < tdesde){
         console.log("La hora de la inicio es mayor a la de finalizacion f1");
@@ -462,19 +457,7 @@ info(){
         }
         else{console.log("Todo bien");}
 
-<<<<<<< HEAD
     
-=======
-      let h1 = { m_de:this.mdesde, m_hasta:this.mhasta, t_de:this.tdesde , t_hasta:this.thasta , semana : this.dias};
-      let h2 = { m_de:this.mdesde2, m_hasta:this.mhasta2, t_de:this.tdesde2 , t_hasta:this.thasta2 , semana : this.dias2};
-      let h3 = { m_de:this.mdesde3, m_hasta:this.mhasta3, t_de:this.tdesde3 , t_hasta:this.thasta3 , semana : this.dias3};
-      let horario = [h1,h2,h3]
-      let h4 = {horario: horario}
-      let horarios = [h4]
-      let info5 = {horarios}
-      console.log("NINFOOOOOOOOOOOO");
-      console.log(info5);
->>>>>>> ae4c06e8d1c90fce8a6189804af107aa10d88c7d
 
 }
 }

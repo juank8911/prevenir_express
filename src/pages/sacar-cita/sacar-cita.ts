@@ -125,7 +125,6 @@ export class SacarCitaPage {
         this.maniana = hors.maniana;
         let hors2 = data[1];
         this.tarde = hors2.tardes;
-<<<<<<< HEAD
         
        
         let dis = this.maniana[0];
@@ -144,8 +143,6 @@ export class SacarCitaPage {
         {
           this.td = false;
         }
-=======
->>>>>>> ae4c06e8d1c90fce8a6189804af107aa10d88c7d
 
       },(err)=>{console.log(err);});
     }
