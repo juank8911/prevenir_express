@@ -32,7 +32,7 @@
   
 <ion-list>
     <div *ngFor="let i of maniana">
-      <button ion-item (click)="hola(i.hora)" *ngIf="!mn" [disabled]="i.libres === 0" >
+      <button ion-item (click)="sacarCita(i.hora)" *ngIf="!mn" [disabled]="i.libres === 0" >
         <p>{{i.hora}}</p>
         <p>Citas disponibles : {{i.libres}}</p>
       </button>
@@ -42,7 +42,7 @@
 <h3>Tarde</h3>
 <ion-list>
 <div *ngFor="let i of tarde">
-    <button ion-item (click)="hola(i.hora,'tarde')" *ngIf="!td" [disabled]="i.libres === 0" >
+    <button ion-item (click)="sacarCita(i.hora,'tarde')" *ngIf="!td" [disabled]="i.libres === 0" >
       <p>{{i.hora}}</p>
       <p>Citas disponibles : {{i.libres}}</p>
     </button>

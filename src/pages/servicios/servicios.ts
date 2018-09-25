@@ -4,6 +4,7 @@ import { IonicPage, NavController, NavParams ,PopoverController,Loading,
 import { ApiProvider } from '../../providers/api/api';
 import { ServicioPage } from '../servicio/servicio';
 import {PopoverFiltroPage} from '../popover-filtro/popover-filtro';
+import {Global} from '../../app/global';
 
 /**
  * Generated class for the ServiciosPage page.
@@ -22,8 +23,13 @@ export class ServiciosPage {
  ServicePage;
  loading: Loading;
  busqueda :string ="";
+ inf = [];
+ url;
   constructor(public navCtrl: NavController, public navParams: NavParams, public api:ApiProvider,
-    private popoverCtr : PopoverController,public loadingCtrl: LoadingController,private toastCtrl:ToastController) {
+    private popoverCtr : PopoverController,public loadingCtrl: LoadingController,private toastCtrl:ToastController,
+    private global : Global) {
+
+      this.url = this.global.apiUrl;
 
   }
 
@@ -40,13 +46,42 @@ export class ServiciosPage {
     this.loading.present();
     this.api.getServicios().subscribe((data)=>{
       this.services=data;
+      // console.log(this.services);
+      this.info();
       this.loading.dismiss();
-      console.log(this.services);
+      
     },(error)=>{
       this.loading.dismiss();
       this.presentToast("Error en la conexión intentalo más tarde")
       console.log(error);
     });
+  }
+
+  info(){
+
+    for(var i = 0; i < this.services.length; i ++){
+     
+      let categoria = this.services[i].categoria;
+      let duracion = this.services[i].duracion;
+      let descuento = this.services[i].descuento;
+      let nombre = this.services[i].nombre;
+      let precio = this.services[i].precio;
+      let descripcion = this.services[i].descripcion;
+      let fot = this.services[i];
+      let id_servicios = this.services[i].id_servicios;
+      let id_provedores = this.services[i].id_provedores;
+      let precio_cliente_prevenir = this.services[i].precio_cliente_prevenir;
+      let video = this.services[i].video;
+      let fotos = this.services[i].foto;
+      
+      fot = fot.foto[0];
+      fot = this.url+fot.ruta;
+      
+      this.inf.push({categoria:categoria,descuento:descuento,nombre:nombre,descripcion:descripcion,foto:fot,
+                      id_servicio:id_servicios,id_provedor:id_provedores, duracion:duracion,precio:precio,
+                      precio_cliente_prevenir:precio_cliente_prevenir, video:video, fotos:fotos });
+    }
+    console.log(this.inf);
   }
 
       getItems(ev: any) {
@@ -70,6 +105,7 @@ cancel(ev:any){
   this.servicios();
  }
 
+  
   goToServicio(servicio)
   {
     console.log(servicio);

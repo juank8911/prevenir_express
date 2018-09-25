@@ -128,7 +128,7 @@ export class SacarCitaPage {
 
   }
 
-  hola(hora,tarde){
+  sacarCita(hora,tarde){
    
     let alert = this.alertCtrl.create({
       title: 'Confirmacion',
@@ -161,10 +161,10 @@ export class SacarCitaPage {
                   if(true){
                     this.presentToast("Su cita fue agregada con exito, Revisa tu historial de citas");
                     this.navCtrl.setRoot(HomePage);
-                    
                   }else{
                     this.presentToast("Error en la conexion, intentalo mas tarde");
                   }
+
                 },(err)=>{
                   this.presentToast("Error en la conexion, intentalo mas tarde");
                 });
@@ -184,7 +184,6 @@ export class SacarCitaPage {
                   this.presentToast("Su cita fue agregada con exito, Revisa tu historial de citas");
                   this.navCtrl.setRoot(HomePage);
                 }else{
-                  this.presentToast("Error en la conexion, intentalo mas tarde");
                 }
                },(err)=>{
                 this.presentToast("Error en la conexion, intentalo mas tarde");

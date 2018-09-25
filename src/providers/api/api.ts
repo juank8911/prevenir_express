@@ -127,7 +127,13 @@ export class ApiProvider {
       // console.log("AQUIIIIIIIIIIIIIIIIII");
       return this.http.get(this.apiUrl+'/citas/'+fecha+'/'+id);
     }
+    getCitasUsuario(id){
+      return this.http.get(this.apiUrl + '/events/'+id);
+    }
 
+    getServicio(id){
+      return this.http.get(this.apiUrl + '/servicess/'+id);
+    }
      /////////////////////////////////////// DELETE ///////////////////////////////////////////////
 
      dltService(id){
@@ -137,8 +143,7 @@ export class ApiProvider {
         this.token = localStorage.getItem('token');
         this.token = this.token.split('"');
         this.token2=this.token[1];
-        console.log("ENTRE AL PROVIDER");
-          let url =""
+        // console.log("ENTRE AL PROVIDER");
           this.http.delete(this.apiUrl+'/services/'+id+"?token="+this.token2,{headers : headers})
             .subscribe(res => {
               
@@ -150,6 +155,24 @@ export class ApiProvider {
       });
      }
      
+     dltCita(id){
+      return new Promise((resolve, reject) => {
+        let headers = new HttpHeaders();
+        headers.append('Content-Type', 'application/json');
+        this.token = localStorage.getItem('token');
+        this.token = this.token.split('"');
+        this.token2=this.token[1];
+          this.http.delete(this.apiUrl+'/events/'+id+"?token="+this.token2,{headers : headers})
+            .subscribe(res => {
+              
+              // console.log(res);
+              resolve(res);
+            }, (err) => {
+              reject(err);
+            });
+      });
+     }
+
     /////////////////////////////////////// PUT ///////////////////////////////////////////////
 
     editService(datos){

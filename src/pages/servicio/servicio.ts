@@ -30,16 +30,17 @@ export class ServicioPage {
  public descripcion;
  public logo;
  public id;
- public provData:{};
  private datos : FormGroup;
  public usr;
+ service;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private api:ApiProvider,private formBuilder: FormBuilder,private global : Global) {
       // this.user();
       this.servicio = navParams.get('servicio');
-    console.log(this.servicio);
+      console.log(this.servicio);
+      this.getProveedor();
 
     this.datos = this.formBuilder.group({                 
       descripcion: ['',[Validators.required,Validators.minLength(15)]],    
@@ -61,16 +62,21 @@ export class ServicioPage {
         console.log(this.usr);
       },(err)=>{console.log(err);});
   }
+
   ionViewDidLoad() {
+    // this.api.getServicio(this.servicio.id_servicio).subscribe((data)=>{
+    //   this.service = data;
+    //   this.service = this.service[0];
+    // },(err)=>{
 
-    
-    this.api.getProovedor(this.servicio.id_provedores).subscribe((data)=>{
+    // });
+  }
+
+  getProveedor(){
+    this.api.getProovedor(this.servicio.id_provedor).subscribe((data)=>{
       this.prov=data;
-      this.prov = this.prov[0];
+      this.prov = this.prov[0]
 
-  
-      this.provData={"nombre":this.prov.nombre,"id":this.prov.id_provedor};
-      
       this.nombre = this.prov.nombre;
       this.nit = this.prov.nit;
       this.descripcion = this.prov.descripcion;
@@ -80,7 +86,6 @@ export class ServicioPage {
     },(error)=>{
       console.log(error);
     });
-  
   }
 
   usuario(){

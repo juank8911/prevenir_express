@@ -30,9 +30,9 @@
   <div>
     
     <ion-list>
-    <button *ngFor="let servicio of services " icon-left (click)="goToServicio(servicio)" color="white">
+    <button ion-item *ngFor="let servicio of inf " icon-left (click)="goToServicio(servicio)" color="white">
         <ion-card>
-            <img src="/assets/imgs/slider/banner1a.png" alt="">
+            <img [src]="servicio.foto" alt="">
             <br>
             <br>
             <h1>{{servicio.nombre}}</h1>

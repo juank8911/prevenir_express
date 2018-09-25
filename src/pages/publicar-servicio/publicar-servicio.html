@@ -44,18 +44,17 @@
              <p>Dias</p>
              <ion-item>
                  <ion-label>Dias</ion-label>
-<<<<<<< HEAD
                   <ion-select multiple="true" (ionChange)="diasF1($event);">
-                      <ion-option value="lunes">lunes</ion-option>
+                    <div *ngFor="let i of ds">
+                        <ion-option  [disabled]="i.dia.disponible === false" [value]="i.dia.nombre" >{{i.dia.nombre}}</ion-option>
+                    </div>
+                    <!-- <ion-option value="lunes">lunes</ion-option>
                       <ion-option value="martes">martes</ion-option>
                       <ion-option value="miércoles">miércoles</ion-option>
                       <ion-option value="jueves">jueves</ion-option>
                       <ion-option value="viernes">viernes</ion-option>
                       <ion-option value="sábado">sábado</ion-option>
-                      <ion-option value="domingo">domingo</ion-option>
-=======
-                  <ion-select *ngFor="let i of ds" multiple="true" (ionChange)="diasF1($event);" >
->>>>>>> ae4c06e8d1c90fce8a6189804af107aa10d88c7d
+                      <ion-option value="domingo">domingo</ion-option> -->
                  </ion-select>
                </ion-item>
            
@@ -142,13 +141,9 @@
              <ion-item>
                  <ion-label>Dias</ion-label>
                   <ion-select multiple="true" (ionChange)="diasF2($event);">
-                        <ion-option value="lunes">lunes</ion-option>
-                        <ion-option value="martes">martes</ion-option>
-                        <ion-option value="miércoles">miércoles</ion-option>
-                        <ion-option value="jueves">jueves</ion-option>
-                        <ion-option value="viernes">viernes</ion-option>
-                        <ion-option value="sábado">sábado</ion-option>
-                        <ion-option value="domingo">domingo</ion-option>
+                      <div *ngFor="let i of ds">
+                          <ion-option  [disabled]="i.dia.disponible === false" [value]="i.dia.nombre" >{{i.dia.nombre}}</ion-option>
+                      </div>
                  </ion-select>
                </ion-item>
            
@@ -233,13 +228,9 @@
                  <ion-item>
                      <ion-label>Dias</ion-label>
                       <ion-select multiple="true" (ionChange)="diasF3($event);">
-                       <ion-option value="lunes">lunes</ion-option>
-                       <ion-option value="martes">martes</ion-option>
-                       <ion-option value="miércoles">miércoles</ion-option>
-                       <ion-option value="jueves">jueves</ion-option>
-                       <ion-option value="viernes">viernes</ion-option>
-                       <ion-option value="sábado">sábado</ion-option>
-                       <ion-option value="domingo">domingo</ion-option>
+                          <div *ngFor="let i of ds">
+                              <ion-option  [disabled]="i.dia.disponible === false" [value]="i.dia.nombre" >{{i.dia.nombre}}</ion-option>
+                          </div>
                      </ion-select>
                    </ion-item>
                
@@ -427,9 +418,9 @@
           <ion-checkbox required formControlName="check"></ion-checkbox>
         </ion-item>
     
-    
+        <!-- [disabled]="!this.datos.valid" -->
       <ion-item>
-          <button *ngIf="!editar" ion-button icon-left block round [disabled]="!this.datos.valid">
+          <button *ngIf="!editar" ion-button icon-left block round >
             <ion-icon name="send"></ion-icon>
             Registrar servicio
           </button>
