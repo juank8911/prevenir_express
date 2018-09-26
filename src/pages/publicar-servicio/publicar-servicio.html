@@ -42,9 +42,9 @@
                  </ion-card-header>
                <ion-card-content>
              <p>Dias</p>
-             <ion-item>
+             <ion-item >
                  <ion-label>Dias</ion-label>
-                  <ion-select multiple="true" (ionChange)="diasF1($event);">
+                  <ion-select multiple="true" (ionChange)="diasF1($event);" [disabled]="f1d">
                     <div *ngFor="let i of ds">
                         <ion-option  [disabled]="i.dia.disponible === false" [value]="i.dia.nombre" >{{i.dia.nombre}}</ion-option>
                     </div>
@@ -65,7 +65,7 @@
                  <ion-col>
                    <ion-item>
                    <ion-label>Desde</ion-label>
-                   <ion-select (ionChange)="mdesdef1($event);">
+                   <ion-select (ionChange)="mdesdef1($event);" [disabled]="f1d">
                      <ion-option value="6:00">6 a.m</ion-option>
                      <ion-option value="7:00">7 a.m</ion-option>
                      <ion-option value="8:00">8 a.m</ion-option>
@@ -79,7 +79,7 @@
                  <ion-col>
                    <ion-item>
                    <ion-label>Hasta</ion-label>
-                   <ion-select (ionChange)="mhastaf1($event);">
+                   <ion-select (ionChange)="mhastaf1($event);" [disabled]="f1d">
                     <ion-option value="6:00">6 a.m</ion-option>
                     <ion-option value="7:00">7 a.m</ion-option>
                     <ion-option value="8:00">8 a.m</ion-option>
@@ -100,7 +100,7 @@
                    <ion-col>
                      <ion-item>
                      <ion-label>Desde</ion-label>
-                     <ion-select (ionChange)="tdesdef1($event);">
+                     <ion-select (ionChange)="tdesdef1($event);" [disabled]="f1d">
                          <ion-option value="13:00">1 p.m</ion-option>
                          <ion-option value="14:00">2 p.m</ion-option>
                          <ion-option value="15:00">3 p.m</ion-option>
@@ -114,7 +114,7 @@
                    <ion-col>
                      <ion-item>
                      <ion-label>Hasta</ion-label>
-                  <ion-select (ionChange)="thastaf1($event);">
+                  <ion-select (ionChange)="thastaf1($event);" [disabled]="f1d">
                     <ion-option value="13:00">1 p.m</ion-option>
                     <ion-option value="14:00">2 p.m</ion-option>
                     <ion-option value="15:00">3 p.m</ion-option>
@@ -140,7 +140,7 @@
              <p>Dias</p>
              <ion-item>
                  <ion-label>Dias</ion-label>
-                  <ion-select multiple="true" (ionChange)="diasF2($event);">
+                  <ion-select multiple="true" (ionChange)="diasF2($event);" [disabled]="f2d">
                       <div *ngFor="let i of ds">
                           <ion-option  [disabled]="i.dia.disponible === false" [value]="i.dia.nombre" >{{i.dia.nombre}}</ion-option>
                       </div>
@@ -153,7 +153,7 @@
                  <ion-col>
                    <ion-item>
                    <ion-label>Desde</ion-label>
-                   <ion-select (ionChange)="mdesdef2($event);">
+                   <ion-select (ionChange)="mdesdef2($event);" [disabled]="f2d">
                     <ion-option value="6:00">6 a.m</ion-option>
                     <ion-option value="7:00">7 a.m</ion-option>
                     <ion-option value="8:00">8 a.m</ion-option>
@@ -167,7 +167,7 @@
                  <ion-col>
                    <ion-item>
                    <ion-label>Hasta</ion-label>
-                <ion-select (ionChange)="mhastaf2($event);">
+                <ion-select (ionChange)="mhastaf2($event);" [disabled]="f2d">
                   <ion-option value="6:00">6 a.m</ion-option>
                   <ion-option value="7:00">7 a.m</ion-option>
                   <ion-option value="8:00">8 a.m</ion-option>
@@ -186,7 +186,7 @@
                    <ion-col>
                      <ion-item>
                      <ion-label>Desde</ion-label>
-                     <ion-select (ionChange)="tdesdef2($event);">
+                     <ion-select (ionChange)="tdesdef2($event);" [disabled]="f2d">
                       <ion-option value="13:00">1 p.m</ion-option>
                       <ion-option value="14:00">2 p.m</ion-option>
                       <ion-option value="15:00">3 p.m</ion-option>
@@ -200,7 +200,7 @@
                    <ion-col>
                      <ion-item>
                      <ion-label>Hasta</ion-label>
-                  <ion-select (ionChange)="thastaf2($event);">
+                  <ion-select (ionChange)="thastaf2($event);" [disabled]="f2d">
                     <ion-option value="13:00">1 p.m</ion-option>
                     <ion-option value="14:00">2 p.m</ion-option>
                     <ion-option value="15:00">3 p.m</ion-option>
@@ -433,7 +433,5 @@
   
    
   </form>
-
-  <button ion-button (click)="info()">Info</button>
 
 </ion-content>

@@ -63,7 +63,8 @@ export class PublicarServicioPage {
   tdesde3;
   thasta3;
   ds = [];
-  valHor:boolean=false;
+  f1d:boolean=false;
+  f2d:boolean=false;
   h1:boolean=false;
   h2:boolean=false;
   h3:boolean=false;
@@ -322,8 +323,30 @@ export class PublicarServicioPage {
             }
   }
 
+  validacionh3(){
+      let mdesde3 = parseInt(this.mdesde3);
+      let mhasta3 = parseInt(this.mhasta3);
+      let tdesde3 = parseInt(this.tdesde3);
+      let thasta3 = parseInt(this.thasta3);
+
+      if(this.f3 === true && !this.dias3){
+        this.presentToast("Por favor selecciona dias en el horario 3");
+      }else if((!mhasta3 && !mdesde3) || (!thasta3 && !tdesde3) ){
+        this.presentToast("Seleciona horas de atención en el horario 2");
+      }
+      else if (mhasta3 < mdesde3 || thasta3 < tdesde3)
+      {
+        this.presentToast("La hora de la inicio es mayor a la de finalización en el horario 3");
+      }else{
+        this.h3=true;
+      }
+  }
 
   agregarHorario(){
+
+    if(this.cont === false){
+      this.validacionh1();
+      if(this.h1 === true){
 
         for(var i = 0; i<this.dias.length; i++){
         
@@ -342,110 +365,88 @@ export class PublicarServicioPage {
             }
           }
         }
-
-      
-
-      if(this.cambio === false)  
-      {
-        this.cambio=true; 
-        this.f2= true;
-      }
-         
-     else
-     { 
-      for(var m = 0; m<this.dias2.length; m++){
+        this.cont = true;
+        this.f1d = true;
         
-        for(var n = 0;n<this.ds.length ;n++){
-          let d = [];
-          d = this.ds[n].dia.nombre;
-          let  da = this.ds[n].dia.disponible;
-          
-          if(this.dias2[m] === d){
-            console.log(d);
-            if (this.ds[n].dia.nombre === d)
-            {
-              console.log(d);
-              // console.log("POR AQUII")
-              var k = this.ds[n].dia.disponible = false;
-              // console.log(h);
-            }      
-          }
-        }
       }
-      this.f3=true;
-      this.dis=false;} 
-    } 
+     
+    }
+        
+      if(this.cont === true){
+
+          
+        if(this.cambio === false)  
+        {
+          this.cambio=true; 
+          this.f2= true;
+        }
+           
+       else
+       { 
+
+        this.validacionh2();
+        if(this.h2 === true){
+
+          for(var m = 0; m<this.dias2.length; m++){
+          
+            for(var n = 0;n<this.ds.length ;n++){
+              let d = [];
+              d = this.ds[n].dia.nombre;
+              let  da = this.ds[n].dia.disponible;
+              
+              if(this.dias2[m] === d){
+                console.log(d);
+                if (this.ds[n].dia.nombre === d)
+                {
+                  console.log(d);
+                  // console.log("POR AQUII")
+                  var k = this.ds[n].dia.disponible = false;
+                  // console.log(h);
+                }      
+              }
+            }
+            this.f2d=true;
+            this.f3=true;
+            this.dis=false;
+          } 
+        }
+      } 
+    }
+  } 
   
 
   registrar(){
    
-    console.log("OEEEEEE");
     if(!this.editar){
 
    /////////////////////////// Validaciones horarios ////////////////////////////////
+      let hor:boolean = true;
+
+      if(hor === true)
+      {
+        if(this.f3 === true){
+          this.validacionh3();
+            if(this.h3 === true){
+              var tdb:boolean = true;
+            }
+        } 
+        else{
+            tdb=true;
+        }
+      }
    
-   let hor = true;
-
-   if(hor === true){
-  
-
-    let mdesde = parseInt(this.mdesde);
-    let mhasta = parseInt(this.mhasta);
-    let tdesde = parseInt(this.tdesde);
-    let thasta = parseInt(this.thasta);
-    let mdesde2 = parseInt(this.mdesde2);
-    let mhasta2 = parseInt(this.mhasta2);
-    let tdesde2 = parseInt(this.tdesde2);
-    let thasta2 = parseInt(this.thasta2);
-    let mdesde3 = parseInt(this.mdesde3);
-    let mhasta3 = parseInt(this.mhasta3);
-    let tdesde3 = parseInt(this.tdesde3);
-    let thasta3 = parseInt(this.thasta3);
-
-
-
-
-      if(!this.dias){
-        this.presentToast("Por favor selecciona dias en el horario 1");
-      }else if((!mhasta && !mdesde) || (!thasta && !tdesde) ){
-        this.presentToast("Seleciona horas de atención en el horario 1");
-      }
-      else  if(mhasta < mdesde || thasta < tdesde){
-        this.presentToast("La hora de la inicio es mayor a la de finalización en el horario 1");
-      }
-      else if(this.f2 === true && !this.dias2){
-       this.presentToast("Por favor selecciona dias en el horario 2");
-      }
-      else if((!mhasta2 && !mdesde2) || (!thasta2 && !tdesde2) ){
-        this.presentToast("Seleciona horas de atención en el horario 2");
-      }
-      else if (mhasta2 < mdesde2 || thasta2 < tdesde2)
-      {
-        this.presentToast("La hora de la inicio es mayor a la de finalización en el horario 2");
-      }
-      else if(this.f3 === true && !this.dias3){
-        this.presentToast("Por favor selecciona dias en el horario 3");
-      }else if((!mhasta3 && !mdesde3) || (!thasta3 && !tdesde3) ){
-        this.presentToast("Seleciona horas de atención en el horario 2");
-      }
-      else if (mhasta3 < mdesde3 || thasta3 < tdesde3)
-      {
-        this.presentToast("La hora de la inicio es mayor a la de finalización en el horario 3");
-      }
- 
-   }
-
-    
       ////////////////////////////////Validaciones formulario ///////////////////////////////////
 
-    else if(this.imagenes.length < 1)
+    if(tdb === true && this.imagenes.length < 1)
     {
-      this.presentToast("Debes elegir almenos una imagen")
+      this.presentToast("Debes elegir almenos una imagen");
     }
     else 
     if(!this.mncpSelect)
     {
-      this.presentToast("Debes elegir un municipio")
+      this.presentToast("Debes elegir un municipio");
+    }else if(!this.cateSelect){
+      this.presentToast("Debes elegir una categoria");
     }
      else if(!this.datos.valid) {
       this.presentToast("completa los campos requeridos");
@@ -477,6 +478,8 @@ export class PublicarServicioPage {
     this.loading.present();
 
     this.api.postImages(formulario).then((data)=>{
+      console.log("AQUIIIIII");
+      console.log(data);
       this.res = data;
       this.res = this.res[0];
       console.log(this.res.agregado);

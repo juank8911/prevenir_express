@@ -161,9 +161,11 @@ export class SacarCitaPage {
                   if(true){
                     this.presentToast("Su cita fue agregada con exito, Revisa tu historial de citas");
                     this.navCtrl.setRoot(HomePage);
-                  }else{
-                    this.presentToast("Error en la conexion, intentalo mas tarde");
                   }
+                  
+                  // else{
+                  //   this.presentToast("Error en la conexion, intentalo mas tarde");
+                  // }
 
                 },(err)=>{
                   this.presentToast("Error en la conexion, intentalo mas tarde");
