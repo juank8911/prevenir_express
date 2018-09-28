@@ -44,9 +44,11 @@ export class UserPage {
     this.infoUser = this.global.infoPerfil;
     this.foto = this.global.apiUrl+this.infoUser.avatar;
     if(!this.infoUser.feha_nacimiento){
-      this.fechaNacimiento = false;
-    }else{
       this.fechaNacimiento = true;
+    }else{
+      this.fechaNacimiento = false;
+      var ff = moment(this.infoUser.feha_nacimiento ).format('DD-M-YYYY');
+      console.log(ff);
     }
    
     
@@ -59,8 +61,8 @@ export class UserPage {
       direccion : [this.infoUser.direccion],
       telefono : [this.infoUser.telefono,[Validators.pattern('[0-9]*')]],
       whats : [this.infoUser.telefonowatshapp],
-      fecha : [],
-      fecha2 : [this.infoUser.feha_nacimiento],
+      fecha : ['',[Validators.required]],
+      fecha2 : [ff],
    
 
     });
