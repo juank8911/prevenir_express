@@ -109,8 +109,9 @@ export class FormularioRegistroPage {
                 this.tokenR = this.resposeData.token;
                 this.id_usuario = this.resposeData.id_usuario;
               
+                let int = parseInt(this.user.id);
                 localStorage.setItem(this.key,JSON.stringify(recorri2.token));
-                localStorage.setItem(this.keyId,JSON.stringify(recorrido.id_usuario));
+                localStorage.setItem(this.keyId,JSON.stringify(int));
                 localStorage.setItem(this.keyAdmin,JSON.stringify(recorri2.esAdmin));
                 
 
@@ -119,7 +120,7 @@ export class FormularioRegistroPage {
                 this.userData.email = this.user.email;
                 this.userData.pssw = this.user.hashed;
                 this.loading.dismiss();
-                this.navCtrl.push(HomePage);
+                this.navCtrl.setRoot(HomePage);
               }
               else{
                 //usuario ya existe
@@ -167,7 +168,8 @@ export class FormularioRegistroPage {
            this.userData = {"id":this.datos.value.id,"email":this.datos.value.email, "identificacion":this.datos.value.id,
            "pssw":this.hashed,"nombre":this.datos.value.nombre,
            "apellido":this.datos.value.apellido,"esAdmin":this.esAdmin,"face":this.face};
-
+           
+           
            console.log(this.userData);
            this.auth.postLogin(this.userData,"/register").then((result)=>{
            this.resposeData = result;
@@ -181,12 +183,12 @@ export class FormularioRegistroPage {
             ///////////////////////////verificar si el usuario no existe/////////////////
             if(re1.existe==false){
               
-            
+              let int = parseInt(this.datos.value.id);
               localStorage.setItem(this.key,JSON.stringify(re2.token));
-              localStorage.setItem(this.keyId,JSON.stringify(re1.id_usuario));
+              localStorage.setItem(this.keyId,JSON.stringify(int));
               localStorage.setItem(this.keyAdmin,JSON.stringify(re2.esAdmin));
               this.loading.dismiss();
-              this.navCtrl.push(HomePage);
+              this.navCtrl.setRoot(HomePage);
             }
             else{
               this.loading.dismiss();

@@ -134,6 +134,15 @@ export class ApiProvider {
     getServicio(id){
       return this.http.get(this.apiUrl + '/servicess/'+id);
     }
+
+    getCitasMedico(fecha,id){
+   
+        return this.http.get(this.apiUrl+'/servcitas/'+fecha+'/'+id);
+    }
+
+    getValidacion(id){
+      return this.http.get(this.apiUrl+'/datos/'+id);
+    }
      /////////////////////////////////////// DELETE ///////////////////////////////////////////////
 
      dltService(id){
@@ -143,8 +152,9 @@ export class ApiProvider {
         this.token = localStorage.getItem('token');
         this.token = this.token.split('"');
         this.token2=this.token[1];
-        // console.log("ENTRE AL PROVIDER");
-          this.http.delete(this.apiUrl+'/services/'+id+"?token="+this.token2,{headers : headers})
+        let url =this.apiUrl+'/services/'+id+"?token="+this.token2;
+        console.log(url);
+          this.http.delete(url,{headers : headers})
             .subscribe(res => {
               
               console.log(res);
@@ -165,7 +175,7 @@ export class ApiProvider {
           this.http.delete(this.apiUrl+'/events/'+id+"?token="+this.token2,{headers : headers})
             .subscribe(res => {
               
-              // console.log(res);
+              console.log(res);
               resolve(res);
             }, (err) => {
               reject(err);

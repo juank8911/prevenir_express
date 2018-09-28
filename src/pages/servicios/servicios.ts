@@ -78,7 +78,7 @@ export class ServiciosPage {
       fot = this.url+fot.ruta;
       
       this.inf.push({categoria:categoria,descuento:descuento,nombre:nombre,descripcion:descripcion,foto:fot,
-                      id_servicio:id_servicios,id_provedor:id_provedores, duracion:duracion,precio:precio,
+                      id_servicio:id_servicios,id_provedores:id_provedores, duracion:duracion,precio:precio,
                       precio_cliente_prevenir:precio_cliente_prevenir, video:video, fotos:fotos });
     }
     console.log(this.inf);
@@ -89,7 +89,7 @@ export class ServiciosPage {
    
      const val = ev.target.value;
      if (val && val.trim() != '') {
-      this.services = this.services.filter((servicio) => {
+      this.inf = this.inf.filter((servicio) => {
        return (servicio.nombre.toLowerCase() && servicio.nombre.toLowerCase().indexOf(val.toLowerCase()) > -1);
      }
      

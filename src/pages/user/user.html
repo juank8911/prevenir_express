@@ -12,12 +12,13 @@
 
 </ion-header>
 
+<!-- ----------------------------------- AVATAR ---------------------------------------------- -->
 
 <ion-content padding>
 <div class="img">
-  <img id="userImg" src="/assets/imgs/consumidor.png" alt="nd">
+  <img id="userImg" [src]="foto" alt="nd">
   <ion-fab >
-    <button ion-fab mini >
+    <button ion-fab mini (click)="openGalery()">
       <ion-icon name="cloud-upload"></ion-icon>
     </button>
   </ion-fab>
@@ -26,6 +27,12 @@
   <ion-icon name="archive"></ion-icon>
   Guardar Avatar</button>
 
+<!-- ------------------------------ FORMULARIO USER ---------------------------------------------- -->
+
+
+
+  <div *ngIf="!global.admin">
+  <form [formGroup]="datosUser" (ngSubmit)="datosUsr()"  novalidate>
   <div class="info">
     <h3>Informacion de mi cuenta</h3>
     <ion-item>
@@ -40,74 +47,147 @@
         <ion-label>
           <ion-icon name="mail"></ion-icon>
         </ion-label>
-        <ion-input placeholder="ejemplo@mail.com"></ion-input>
+        <ion-input placeholder="ejemplo@mail.com" type="email" formControlName="email" readonly></ion-input>
       </ion-item>
       <ion-item>
           <ion-label>
             <ion-icon name="person"></ion-icon>
           </ion-label>
-          <ion-input placeholder="igresa tu nombre"></ion-input>
+          <ion-input placeholder="ingresa tu nombre" type="text" formControlName="nombres"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <ion-icon name="person"></ion-icon>
+          </ion-label>
+          <ion-input placeholder="ingresa tu apellido" type="text" formControlName="apellidos"></ion-input>
         </ion-item>
   </div>
   <div class="contacto">
     <h3>Datos de contacto</h3>
     <ion-item>
+      <ion-label>Fecha nacimiento</ion-label>
+      <ion-datetime displayFormat="MM/DD/YYYY" formControlName="fecha"></ion-datetime>
+    </ion-item>
+    <ion-item>
             <ion-label>
               <ion-icon name="card"></ion-icon>
             </ion-label>
-            <ion-input placeholder="igresa tu identificación"></ion-input>
+            <ion-input placeholder="igresa tu identificación" type="number" formControlName="identificacion"></ion-input>
           </ion-item>
           <ion-item>
               <ion-label>
                 <ion-icon name="locate"></ion-icon>
               </ion-label>
-              <ion-input placeholder="igresa tu dirección"></ion-input>
+              <ion-input placeholder="igresa tu dirección" type="text"  formControlName="direccion" ></ion-input>
             </ion-item>
             <ion-item>
                 <ion-label>
                   <ion-icon name="call"></ion-icon>
                 </ion-label>
-                <ion-input placeholder="igresa tu telefono"></ion-input>
+                <ion-input placeholder="igresa tu telefono" type="number" formControlName="telefono"></ion-input>
               </ion-item>
               <ion-item>
                   <ion-label>
                     <ion-icon name="logo-whatsapp"></ion-icon>
                   </ion-label>
-                  <ion-input placeholder="igresa tu whatsapp"></ion-input>
+                  <ion-input placeholder="igresa tu whatsapp" type="number" formControlName="whats"></ion-input>
+                </ion-item>       
+  </div>
+
+  <button icon-left ion-button block round>
+    <ion-icon name="archive"></ion-icon>
+    Guardar </button>
+
+  </form>
+</div>
+
+<!--   --------------------- FORMULARIO PROVEDOR -------------------------------------------------- -->
+
+<div *ngIf="global.admin">
+    <form [formGroup]="datosAdmin" (ngSubmit)="datosUsr()"  novalidate>
+    <div class="info">
+        <h3>Informacion de mi cuenta</h3>
+        <ion-item>
+            <ion-label>Pais</ion-label>
+            <ion-icon name="pin"></ion-icon>
+            <ion-select >
+              <ion-option value="f">P1</ion-option>
+              <ion-option value="m">P2</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+              <ion-label>
+                <ion-icon name="mail"></ion-icon>
+              </ion-label>
+              <ion-input placeholder="ejemplo@mail.com" type="email" formControlName="email" readonly></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                  <ion-icon name="person"></ion-icon>
+                </ion-label>
+                <ion-input placeholder="ingresa tu nombre" type="text" formControlName="nombres"></ion-input>
+              </ion-item>
+    </div>
+    <div class="contacto">
+        <h3>Datos de contacto</h3>
+       
+              <ion-item>
+                  <ion-label>
+                    <ion-icon name="locate"></ion-icon>
+                  </ion-label>
+                  <ion-input placeholder="igresa tu dirección" type="text" formControlName="direccion"></ion-input>
                 </ion-item>
                 <ion-item>
                     <ion-label>
-                      <ion-icon name="logo-youtube"></ion-icon>
+                      <ion-icon name="call"></ion-icon>
                     </ion-label>
-                    <ion-input placeholder="Pega el link de tu video "></ion-input>
+                    <ion-input placeholder="igresa tu telefono" type="number" formControlName="telefono"></ion-input>
                   </ion-item>
-  </div>
+                  <ion-item>
+                      <ion-label>
+                        <ion-icon name="logo-whatsapp"></ion-icon>
+                      </ion-label>
+                      <ion-input placeholder="igresa tu whatsapp" type="number" formControlName="whats"></ion-input>
+                    </ion-item>       
+      </div>
+
   <div class="proovedor">
     <h3>Información proovedor</h3>
+    
       <ion-item>
           <ion-label>
             <ion-icon name="contacts"></ion-icon>
           </ion-label>
-          <ion-input placeholder="Ingresa el nombre de tu empresa"></ion-input>
+          <ion-input placeholder="Ingresa el nombre de tu empresa" type="text" formControlName="nombres"></ion-input>
         </ion-item>
         <ion-item>
             <ion-label>
               <ion-icon name="person"></ion-icon>
             </ion-label>
-            <ion-input placeholder="Ingresa tu Nit / Tarjeta profecional"></ion-input>
+            <ion-input placeholder="Ingresa tu Nit / Tarjeta profecional" formControlName="nit"></ion-input>
           </ion-item>
           <ion-item>
               <ion-label>
                 <ion-icon name="at"></ion-icon>
               </ion-label>
-              <ion-input placeholder="Ingresa link de tu sitio web"></ion-input>
+              <ion-input placeholder="Ingresa link de tu sitio web" ></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label>
+                <ion-icon name="logo-youtube"></ion-icon>
+              </ion-label>
+              <ion-input placeholder="Pega el link de tu video" ></ion-input>
             </ion-item>
             <ion-item>
                 <ion-textarea placeholder="Describenos tu empresa"></ion-textarea>
-              </ion-item>
+              </ion-item>        
   </div>
 
   <button icon-left ion-button block round>
       <ion-icon name="archive"></ion-icon>
       Guardar </button>
+
+</form>
+</div>
+
 </ion-content>

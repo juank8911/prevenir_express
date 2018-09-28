@@ -11,22 +11,27 @@
         <ion-icon name="close"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title>Sacar cita</ion-title>
+    <ion-title>Información</ion-title>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
-<h1>{{nombre}}</h1>
-<p>Nombre provedor</p>
-<p>Hora cita</p>
-<p>{{info}}</p>
-<ion-item>
-  <ion-label>Beneficiarios</ion-label>
-  <ion-select>
-    <ion-option>bene</ion-option>     
-  </ion-select>
-</ion-item>
-<button ion-button (click)="save()">Guardar</button>
-
+   <div class="img">
+      <img id="userImg" [src]="avatar" alt="nd">
+    </div>
+  
+    <h1 class="h1">Información paciente</h1>
+<div class="card">
+    <ion-card>
+      <ion-card-content>
+        <h3>Nombre : {{nombre}}</h3>
+        <h3>Apellido : {{apellido}} </h3>
+        <h3>Fecha de nacimiento :{{fechaNacimiento}}</h3>
+        <h3>Contacto : {{contacto}}</h3>
+        <h3>Correo : {{correo}}</h3>
+      </ion-card-content>
+    </ion-card>
+</div>
+<button class="hc" ion-button disabled>Historia clinica</button>
 </ion-content>

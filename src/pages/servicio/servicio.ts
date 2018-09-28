@@ -25,6 +25,7 @@ export class ServicioPage {
  public id_prov;
  public prov;
 //  public pv;
+ public categoria;
  public nombre;
  public nit;
  public descripcion;
@@ -33,6 +34,7 @@ export class ServicioPage {
  private datos : FormGroup;
  public usr;
  service;
+ fotos = [];
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -40,7 +42,9 @@ export class ServicioPage {
       // this.user();
       this.servicio = navParams.get('servicio');
       console.log(this.servicio);
+      
       this.getProveedor();
+      this.getFotos();
 
     this.datos = this.formBuilder.group({                 
       descripcion: ['',[Validators.required,Validators.minLength(15)]],    
@@ -49,10 +53,24 @@ export class ServicioPage {
       this.video = "https://www.youtube.com/embed/4Z4TxFh1tO8";
     }
     else{
-      this.video= "https://www.youtube.com/embed/euZ7W4yE1Ks";
+      this.video= "https://www.youtube.com/embed/"+this.servicio.video;
     }
    
     
+  }
+
+  getFotos(){
+    
+      let fotos = this.servicio.fotos;
+      // console.log("AQUIIIIIIIIIIIIIII");
+      // console.log(fotos.length);
+      for(var i = 0; i< fotos.length; i++)
+      {
+        let foto = fotos[i].ruta;
+        foto = this.global.apiUrl+foto;
+        this.fotos.push({foto:foto});
+      }
+      // console.log(this.fotos)
   }
 
   user(){
@@ -73,15 +91,17 @@ export class ServicioPage {
   }
 
   getProveedor(){
-    this.api.getProovedor(this.servicio.id_provedor).subscribe((data)=>{
+    this.api.getProovedor(this.servicio.id_provedores).subscribe((data)=>{
       this.prov=data;
       this.prov = this.prov[0]
+      console.log(this.prov);
 
       this.nombre = this.prov.nombre;
       this.nit = this.prov.nit;
       this.descripcion = this.prov.descripcion;
       this.logo = this.global.apiUrl +this.prov.logo;
       this.id = this.prov.id_provedor;
+  
       
     },(error)=>{
       console.log(error);

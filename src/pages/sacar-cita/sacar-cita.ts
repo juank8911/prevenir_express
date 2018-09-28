@@ -29,6 +29,7 @@ export class SacarCitaPage {
   id_servicio;
   id_usuario;
   f;
+  val;
   
   constructor(public navCtrl: NavController, public navParams: NavParams,private api : ApiProvider,
     private global : Global,private alertCtrl: AlertController,private toastCtrl:ToastController) {
@@ -36,7 +37,7 @@ export class SacarCitaPage {
     this.id_usuario= this.global.id_usuario;
     this.id_usuario = parseInt(this.id_usuario);
     this.id_servicio = this.navParams.get('id_servicio');
-    console.log(this.id_servicio);
+    // console.log(this.id_servicio);
     this.today = moment(new Date().toISOString()).format('YYYY-M-DD');
     this.horarios();
     
@@ -45,6 +46,7 @@ export class SacarCitaPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SacarCitaPage');
+    this.validacion();
   }
 
   onDaySelect(ev)
@@ -148,6 +150,11 @@ export class SacarCitaPage {
            
             if(!tarde)
               {
+                if(this.val.datos === false){
+                  this.presentToast('Por favor completa en "Mi cuenta" los campos requeridos antes de sacar la cita');
+                     }
+                     else{
+
                 let h = hora.split(':');
                 h = h[0];
                 h = h + ":00:00"
@@ -170,8 +177,14 @@ export class SacarCitaPage {
                 },(err)=>{
                   this.presentToast("Error en la conexion, intentalo mas tarde");
                 });
+                 }
                }
           else{
+
+            if(this.val.datos === false){
+              this.presentToast('Por favor completa en "Mi cuenta" los campos requeridos antes de sacar la cita');
+                 }
+            else{
                let h = hora.split(':');
                h = h[0];
                h=  parseInt(h)+12; 
@@ -190,12 +203,21 @@ export class SacarCitaPage {
                },(err)=>{
                 this.presentToast("Error en la conexion, intentalo mas tarde");
                });
+              }
            }
           }
         }
       ]
     });
     alert.present();
+  }
+
+  validacion(){
+    console.log(this.global.id_usuario);
+    this.api.getValidacion(this.global.id_usuario).subscribe((data)=>{
+      this.val = data;
+      
+    },(err)=>{console.log(err)});
   }
 
   presentToast(msg) {

@@ -20,6 +20,7 @@ import {Global} from './global';
 import { Storage } from '@ionic/storage';
 import {PublicarServicioPage} from '../pages/publicar-servicio/publicar-servicio';
 import { ServicioPage } from '../pages/servicio/servicio';
+import {ApiProvider} from '../providers/api/api';
 
 
 
@@ -31,13 +32,19 @@ export class MyApp {
   rootPage : any;
   pages : Array<{titulo:string, component:any, icon:string}>;
   // servicios : Array<{nombre:string, component:any, descripcion:string, duracion:string}>;
+ 
 
-  
 
   constructor(public platform: Platform,public  statusBar: StatusBar,public splashScreen: SplashScreen,
-     public global:Global, public alertCtrl: AlertController) {
+     public global:Global, public alertCtrl: AlertController, private api:ApiProvider) {
     
     this.rootPage = BlancoPage;
+
+   
+  // this.split = this.id_usuario.split('"');
+  // console.log(this.split);
+
+
     // this.pages = [
     // { titulo:'Servicios', component:ServiciosPage, icon:'medkit'  },
     // { titulo:'Historial de citas', component:CitasPage, icon:'clipboard'  },
@@ -108,6 +115,9 @@ export class MyApp {
 
  logOut(){
   localStorage.clear();
+  this.global.login = false;
+  this.global.foto=null;
+  this.global.nombre=null;
   this.nav.setRoot(WelcomePage);
  }
 
