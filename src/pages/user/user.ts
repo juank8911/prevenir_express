@@ -30,6 +30,7 @@ export class UserPage {
   direccion;
   telefono;
   whats;
+  fechaNacimiento:boolean;
   private datosAdmin : FormGroup;
   private datosUser : FormGroup;
   
@@ -38,9 +39,16 @@ export class UserPage {
       
    if (this.global.admin === false)
    {
+    /////////////////////////////////Usuario///////////////////////////////////////////////////
 
     this.infoUser = this.global.infoPerfil;
     this.foto = this.global.apiUrl+this.infoUser.avatar;
+    if(!this.infoUser.feha_nacimiento){
+      this.fechaNacimiento = false;
+    }else{
+      this.fechaNacimiento = true;
+    }
+   
     
     this.datosUser = this.formBuilder.group({
 
@@ -52,6 +60,7 @@ export class UserPage {
       telefono : [this.infoUser.telefono,[Validators.pattern('[0-9]*')]],
       whats : [this.infoUser.telefonowatshapp],
       fecha : [],
+      fecha2 : [this.infoUser.feha_nacimiento],
    
 
     });
