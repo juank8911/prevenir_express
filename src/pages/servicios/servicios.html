@@ -32,7 +32,7 @@
     <ion-list>
     <button ion-item *ngFor="let servicio of inf " icon-left (click)="goToServicio(servicio)" color="white">
         <ion-card>
-            <img [src]="servicio.foto" alt="">
+            <img [src]="servicio.foto" alt="" class="img">
             <br>
             <br>
             <h1>{{servicio.nombre}}</h1>

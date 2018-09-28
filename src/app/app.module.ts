@@ -31,6 +31,7 @@ import {AgregarBeneficiarioPage} from '../pages/agregar-beneficiario/agregar-ben
 import {ActualizarServicioPage} from '../pages/actualizar-servicio/actualizar-servicio';
 import {ModalCitaPage} from '../pages/modal-cita/modal-cita';
 import {PopoverFiltroPage} from '../pages/popover-filtro/popover-filtro';
+import {CitasProvedorPage} from '../pages/citas-provedor/citas-provedor';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -68,7 +69,8 @@ import { FilterPipe } from '../pipes/filter/filter';
     CitasPage,
     ActualizarServicioPage,
     ModalCitaPage,
-    PopoverFiltroPage
+    PopoverFiltroPage,
+    CitasProvedorPage
   
 
   ],
@@ -104,7 +106,8 @@ import { FilterPipe } from '../pipes/filter/filter';
     CitasPage,
     ActualizarServicioPage,
     ModalCitaPage,
-    PopoverFiltroPage
+    PopoverFiltroPage,
+    CitasProvedorPage
     
   ],
   providers: [

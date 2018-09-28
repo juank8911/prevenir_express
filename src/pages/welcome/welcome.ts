@@ -36,6 +36,7 @@ export class WelcomePage {
   private datos : FormGroup;
   loading: Loading;
 
+
   constructor(public navCtrl: NavController, public navParams: NavParams,private fb:Facebook,
     private toastCtrl:ToastController,public auth:ApiProvider,private formBuilder: FormBuilder,
     public menu: MenuController,public loadingCtrl: LoadingController) {
@@ -60,8 +61,13 @@ export class WelcomePage {
         duration: 3000
       });
       this.loading.present();  
+    
+    let hashed = CryptoJS.SHA512(this.datos.value.pssw).toString(CryptoJS.enc.Hex);
+
     this.userData.email = this.datos.value.email;
-    this.userData.pssw = this.datos.value.pssw;
+    this.userData.pssw = hashed;
+
+
     console.log(this.userData)
     this.auth.postLogin(this.userData,"/login").then((result)=>{
       this.resposeData = result;

@@ -81,13 +81,13 @@ export class ListadoPublicacionesPage {
           }
         },
         {
-          text: 'Ok',
+          text: 'Eliminar',
           handler: () => {
 
             this.loading = this.loadingCtrl.create({
               spinner: 'hide',
-              content: "Espera un momento<br>estamos cargando tus servicio... ",
-              duration: 3000
+              content: "Espera un momento<br>estamos procesando tu solicitud... ",
+              duration: 15000
             });
             this.loading.present();
               this.api.dltService(id).then((data)=>{
@@ -100,6 +100,7 @@ export class ListadoPublicacionesPage {
               
             },(err)=>{
               console.log(err);
+              this.loading.dismiss();
               this.presentToast("Error al eliminar intentalo mas tarde");
             });
 

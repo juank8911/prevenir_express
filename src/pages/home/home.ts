@@ -31,6 +31,11 @@ public cateSelect;
 public ctgas;
 public split;
 busqueda:string="";
+provedor;
+usuario;
+foto;
+nombre;
+info;
 
 
 
@@ -45,28 +50,27 @@ busqueda:string="";
 
   constructor(public navCtrl: NavController,public global:Global, public navParams:NavParams, private api:ApiProvider) {
   
-
     this.id_usuario = localStorage.getItem("id");
     this.esAdmin = localStorage.getItem("admin");
+    this.global.id_usuario = this.id_usuario;
+    this.global.login = true;
     // this.imgUser = localStorage.getItem("userImg");
     // this.userName = localStorage.getItem("userName");
     if(this.esAdmin=="true")
     {
-     global.admin=true;
+     this.global.admin=true;
+     this.datosProvedor();
     }
     else{
       console.log("Entro aquiii!")
-     global.admin=false;
-    }
-    
-    // this.split = this.id_usuario.split('"');
-    // console.log(this.split);
-    
-    
-     global.id_usuario = this.id_usuario;
-     global.login = true;
-    
-     console.log(global);
+     this.global.admin=false;
+     this.datosUser();
+     
+  }
+
+  console.log("APPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP!")
+  console.log(this.global);
+ 
   }
 
   departamentos(){
@@ -122,6 +126,37 @@ busqueda:string="";
   buscar(){
     let consulta = {busqueda:this.busqueda,categoria:this.cateSelect, municipio:this.mncpSelect, departamento:this.dptmSelect};
     console.log(consulta);
+  }
+
+  datosUser(){
+    this.api.getUser(this.global.id_usuario).subscribe((data)=>{
+      // console.log("data!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+      this.usuario = data[0];
+      this.global.infoPerfil = this.usuario;
+  
+      this.info = this.global.infoPerfil;
+      this.foto = this.global.apiUrl+this.info.avatar;
+      this.nombre = this.info.nombre;
+      this.global.foto = this.foto;
+      this.global.nombre = this.nombre;
+  
+      // console.log(this.global);
+    },(err)=>{console.log(err)});
+  }
+  
+  datosProvedor(){
+    this.api.getProovedor(this.global.id_usuario).subscribe((data)=>{
+      // console.log("data!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+      this.provedor = data[0];
+      this.global.infoPerfil = this.provedor;
+      
+      this.info = this.global.infoPerfil;
+      this.foto = this.global.apiUrl+this.info.avatar;
+      this.nombre = this.info.nombre;
+      this.global.foto = this.foto;
+      this.global.nombre = this.nombre;
+    
+    },(err)=>{console.log(err)});
   }
 
 }

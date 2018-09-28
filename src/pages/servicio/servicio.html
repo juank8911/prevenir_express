@@ -23,7 +23,7 @@
 	<img src="{{logo}}">
 	</ion-avatar>
 	<h1>{{ nombre }}</h1>
-	<h2>{{nit}}</h2>
+	<h2>NIT/TP : {{nit}}</h2>
 	<p>{{descripcion}}</p>
 	</ion-item>
 	<button ion-button round block color="danger" (click)="goToMaspublicaciones()">Mas publicaciones</button>
@@ -34,20 +34,21 @@
 
 
 <ion-card>
-	<img src="/assets/imgs/slider/banner1a.png" alt="">
+	<ion-slides spaceBetween="50" pager>
+		<ion-slide *ngFor="let f of fotos"><img [src]="f.foto" alt=""></ion-slide>
+		
+	</ion-slides>
 	<br>
-	Categoria
-	<br>
+	<h4>Categoria : {{servicio.categoria}}</h4>
 	<br>
 	<h4>Precio : ${{servicio.precio}}</h4>
 	<br>
-	<p><ion-icon name="thumbs-up">&nbsp;Descuento</ion-icon>&nbsp;{{servicio.descuento}}</p>
+	<p><ion-icon name="thumbs-up">&nbsp;Descuento</ion-icon>&nbsp;{{servicio.descuento}}%</p>
 	<br>
 	<h3>Total : ${{servicio.precio_cliente_prevenir}}</h3>
 	<br>
-	<h4>Duracion en minutos : {{servicio.duracion}}</h4>
+	<h4>Duracion aprox. en minutos : {{servicio.duracion}}</h4>
 	<br>
-	<p>{{ servicio.id_servicio }}</p>
 	<p>{{ servicio.descripcion }}</p>
 </ion-card>
 <ion-card>
@@ -87,8 +88,8 @@
 
 	</ion-card-content>
 </ion-card>
-<ion-fab>
-	<button ion-fab icon-center (click)="sacarCita(servicio.id_servicio)">
+<ion-fab *ngIf="!global.admin">
+	<button ion-fab icon-center (click)="sacarCita(servicio.id_servicio)" >
 		<ion-icon name="medkit"></ion-icon>
 	</button>
 </ion-fab>

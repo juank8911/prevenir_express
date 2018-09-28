@@ -10,9 +10,9 @@
     <button ion-item (click)="goToUser()" menuClose>
         
            <ion-avatar item-start>
-            <img src="">
+            <img [src]="global.foto">
            </ion-avatar>
-           <h2>{{global.userName}}</h2>
+           <h2>{{global.nombre}}</h2>
            <p>Mi cuenta</p>
                
     </button>
@@ -37,7 +37,7 @@
       
       <button ion-item (click)="goToHistorial()" menuClose hideBackButton>
       	<ion-icon name="clipboard" item-start></ion-icon>
-        Historial Citas
+        Mis Citas
       </button>
       
       <button ion-item (click)="goToTerminos()" menuClose hideBackButton>

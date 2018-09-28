@@ -68,12 +68,13 @@ export class FormularioRegistroAdminPage {
 
       this.esAdmin=true;
       this.face=false;
-
-      this.userData = {"id":this.datos.value.id,"email":this.datos.value.email,"pssw":this.datos.value.pssw,
+      let hashed = CryptoJS.SHA512(this.datos.value.pssw).toString(CryptoJS.enc.Hex);
+      this.userData = {"id":this.datos.value.id,"email":this.datos.value.email,"pssw":hashed,
       "nombre":this.datos.value.nombre,"esAdmin":this.esAdmin,"face":this.face,"direccion":this.datos.value.direccion,
       "nit":this.datos.value.id,"tel":this.datos.value.tel,"wsp":this.datos.value.wsp};
 
       console.log(this.userData);
+
       this.auth.postLogin(this.userData,"/register").then((result)=>{
         
          this.resposeData = result;
@@ -88,11 +89,12 @@ export class FormularioRegistroAdminPage {
         ///////////////////////////verificar si el usuario no existe/////////////////
         if(r1.existe==false){  
         
+          let int = parseInt(this.datos.value.id);
           localStorage.setItem(this.key,JSON.stringify(r2.token));
-          localStorage.setItem(this.keyId,JSON.stringify(r1.id_usuario));
+          localStorage.setItem(this.keyId,JSON.stringify(int));
           localStorage.setItem(this.keyAdmin,JSON.stringify(r2.esAdmin));
           this.loading.dismiss();
-          this.navCtrl.push(HomePage);
+          this.navCtrl.setRoot(HomePage);
         }
         else{
           this.loading.dismiss();
