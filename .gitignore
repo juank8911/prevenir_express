@@ -1,6 +1,6 @@
 
 # Created by https://www.gitignore.io/api/ionic3
-
+package-lock.json
 ### Ionic3 ###
 # Log an tmp data
 *~
@@ -29,7 +29,7 @@ plugins/android.json
 plugins/ios.json
 www/
 config.xml
-package-lock.json
+
 /src/app/global.ts
 # Trash data
 $RECYCLE.BIN/
