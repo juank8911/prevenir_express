@@ -207,4 +207,46 @@ export class ApiProvider {
       });
     }
 
+    editUser(datos){
+      return new Promise((resolve, reject) => {
+
+        let headers = new HttpHeaders();
+        headers.append('Content-Type', 'application/json');
+        this.token = localStorage.getItem('token');
+        this.token = this.token.split('"');
+        this.token2=this.token[1];
+        // console.log(this.token2);
+
+          this.http.put(this.apiUrl+'/user/'+"?token="+this.token2,datos,{headers : headers})
+            .subscribe(res => {
+              console.log("ENTRE AL PROVIDER");
+              console.log(res);
+              resolve(res);
+            }, (err) => {
+              reject(err);
+            });
+      });
+    }
+
+    editProv(datos){
+      return new Promise((resolve, reject) => {
+
+        let headers = new HttpHeaders();
+        headers.append('Content-Type', 'application/json');
+        this.token = localStorage.getItem('token');
+        this.token = this.token.split('"');
+        this.token2=this.token[1];
+        // console.log(this.token2);
+
+          this.http.put(this.apiUrl+'/provedores/'+"?token="+this.token2,datos,{headers : headers})
+            .subscribe(res => {
+              console.log("ENTRE AL PROVIDER");
+              console.log(res);
+              resolve(res);
+            }, (err) => {
+              reject(err);
+            });
+      });
+    }
+
 }

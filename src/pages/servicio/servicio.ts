@@ -99,7 +99,7 @@ export class ServicioPage {
       this.nombre = this.prov.nombre;
       this.nit = this.prov.nit;
       this.descripcion = this.prov.descripcion;
-      this.logo = this.global.apiUrl +this.prov.logo;
+      this.logo = this.global.apiUrl +this.prov.avatar;
       this.id = this.prov.id_provedor;
   
       

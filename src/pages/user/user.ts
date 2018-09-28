@@ -36,18 +36,25 @@ export class UserPage {
   
   constructor(public navCtrl: NavController, public navParams: NavParams,private camera: Camera, 
     private global : Global, private api:ApiProvider, private formBuilder: FormBuilder,private toastCtrl:ToastController) {
-      
-   if (this.global.admin === false)
+      this.inicio();
+   
+  }
+
+  inicio(){
+    if (this.global.admin === false)
    {
     /////////////////////////////////Usuario///////////////////////////////////////////////////
 
     this.infoUser = this.global.infoPerfil;
     this.foto = this.global.apiUrl+this.infoUser.avatar;
-    if(!this.infoUser.feha_nacimiento){
-      this.fechaNacimiento = true;
-    }else{
+    
+    if(!this.infoUser.fecha_nacimiento){
+      // console.log("AQUII");
       this.fechaNacimiento = false;
-      var ff = moment(this.infoUser.feha_nacimiento ).format('DD-M-YYYY');
+    }else{
+      // console.log("ACAAA");
+      this.fechaNacimiento = true;
+      var ff = moment(this.infoUser.fecha_nacimiento ).format('DD-M-YYYY');
       console.log(ff);
     }
    
@@ -61,7 +68,7 @@ export class UserPage {
       direccion : [this.infoUser.direccion],
       telefono : [this.infoUser.telefono,[Validators.pattern('[0-9]*')]],
       whats : [this.infoUser.telefonowatshapp],
-      fecha : ['',[Validators.required]],
+      fecha : [''],
       fecha2 : [ff],
    
 
@@ -89,10 +96,7 @@ export class UserPage {
     });
    }
   
-      
-     
   }
-
   ionViewDidLoad() {
     
   }
@@ -153,18 +157,75 @@ export class UserPage {
   }
   datosUsr(){
     
-    var fecha1 = moment(this.datosUser.value.fecha); //fecha de nacimiento
-    var today = moment(new Date().toISOString()).format('YYYY-M-DD');
-    var fecha2 = moment(today);  //fecha actual
-    
-    // console.log(fecha2.diff(fecha1, 'years'), ' años de diferencia');
-    var years = fecha2.diff(fecha1, 'years');
+    if(this.fechaNacimiento = true){
+
+     
+      var fecha1 = moment(this.datosUser.value.fecha); //fecha de nacimiento
+      var today = moment(new Date().toISOString()).format('YYYY-M-DD');
+      var fecha2 = moment(today);  //fecha actual
+      var years = fecha2.diff(fecha1, 'years');
+      
+      if(!this.datosUser.value.fecha){
+        this.presentToast("Por favor selecciona una fecha de nacimiento");
+        this.inicio();
+      }
+      else if(years < 18){
+        this.presentToast("Para sacar una cita debes ser mayor de 18 años, vuelve más tarde");
+        this.inicio()
+      }else{
+        
+        let datos={cedula:this.datosUser.value.identificacion , nombre:this.datosUser.value.nombres, apellidos:this.datosUser.value.apellidos,
+          direccion:this.datosUser.value.direccion, telefono:this.datosUser.value.telefono, telefonowatshapp: this.datosUser.value.whats,
+          fecha_nacimiento:this.datosUser.value.fecha, id:this.global.id_usuario}
+            console.log(datos);
+
+
+          this.api.editUser(datos).then((data)=>{
+            console.log(data);
+          },(err)=>{
+            console.log(err);
+          });
+
   
-    if(years < 18){
-      this.presentToast("Pailas menor");
-    }else{
-      this.presentToast("Buena mayor");
+      }
     }
+    else{
+     
+      let datos={cedula:this.datosUser.value.identificacion , nombre:this.datosUser.value.nombres, apellidos:this.datosUser.value.apellidos,
+      direccion:this.datosUser.value.direccion, telefono:this.datosUser.value.telefono, telefonowatshapp: this.datosUser.value.whats,
+      fecha_nacimiento:this.infoUser.fecha_nacimiento, id:this.global.id_usuario}
+        console.log(datos);
+      this.api.editUser(datos).then((data)=>{
+        console.log(data);
+      },(err)=>{
+        console.log(err);
+      });
+
+    }
+   
+
+    }
+
+    datosProv(){
+
+      // email: [this.infoUser.correo, [Validators.required,Validators.email,Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')]],
+      // nombres: [this.infoUser.nombre, [Validators.required, Validators.minLength(4),Validators.maxLength(40)]],
+      // nit : [this.infoUser.nit,[Validators.required]],
+      // direccion : [this.infoUser.direccion],
+      // telefono : [this.infoUser.telefono],
+      // whats : [this.infoUser.telefonowatshapp],
+      // descripcion : [this.infoUser.descripcion],
+      // web : ['',[Validators.pattern('(?:(?:(?:ht|f)tp)s?://)?[\\w_-]+(?:\\.[\\w_-]+)+([\\w.,@?^=%&:/~+#-]*[\\w@?^=%&/~+#-])?')]],
+      // youtube : ['',[Validators.pattern('(?:(?:(?:ht|f)tp)s?://)?[\\w_-]+(?:\\.[\\w_-]+)+([\\w.,@?^=%&:/~+#-]*[\\w@?^=%&/~+#-])?')]],
+     
+      let datos = {nit:this.datosAdmin.value.nit, correo:this.datosAdmin.value.email, nombre:this.datosAdmin.value.nombres,
+      direccion:this.datosAdmin.value.direccion, telefono : this.datosAdmin.value.telefono, whatsapp: this.datosAdmin.value.whats,
+      descripcion: this.datosAdmin.value.descripcion, link: this.datosAdmin.value.web, video: this.datosAdmin.value.video,id:this.global.id_usuario };
+      this.api.editProv(datos).then((data)=>{
+        console.log(data);
+      },(err)=>{
+        console.log(err);
+      });
 
     }
 

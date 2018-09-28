@@ -50,6 +50,14 @@ info;
 
   constructor(public navCtrl: NavController,public global:Global, public navParams:NavParams, private api:ApiProvider) {
   
+
+ 
+  }
+  ionViewDidEnter() {
+    this.inicio();
+}
+
+  inicio(){
     this.id_usuario = localStorage.getItem("id");
     this.esAdmin = localStorage.getItem("admin");
     this.global.id_usuario = this.id_usuario;
@@ -70,7 +78,6 @@ info;
 
   console.log("APPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP!")
   console.log(this.global);
- 
   }
 
   departamentos(){

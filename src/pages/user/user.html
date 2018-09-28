@@ -66,8 +66,8 @@
     <h3>Datos de contacto</h3>
     <ion-item>
       <ion-label>Fecha nacimiento</ion-label>
-      <ion-datetime *ngIf="fechaNacmiento" displayFormat="MM/DD/YYYY" formControlName="fecha"></ion-datetime>
-      <ion-input type="text" *ngIf="!fechaNacmiento" formControlName="fecha2" readonly></ion-input>
+      <ion-datetime *ngIf="!fechaNacimiento" displayFormat="MM/DD/YYYY" formControlName="fecha"></ion-datetime>
+      <ion-input type="text" *ngIf="fechaNacimiento" formControlName="fecha2" readonly></ion-input>
     </ion-item>
     <ion-item>
             <ion-label>
@@ -95,7 +95,7 @@
                 </ion-item>       
   </div>
 
-  <button icon-left ion-button block round>
+  <button icon-left ion-button block round [disabled]="!this.datosUser.valid">
     <ion-icon name="archive"></ion-icon>
     Guardar </button>
 
@@ -105,7 +105,7 @@
 <!--   --------------------- FORMULARIO PROVEDOR -------------------------------------------------- -->
 
 <div *ngIf="global.admin">
-    <form [formGroup]="datosAdmin" (ngSubmit)="datosUsr()"  novalidate>
+    <form [formGroup]="datosAdmin" (ngSubmit)="datosProv()"  novalidate>
     <div class="info">
         <h3>Informacion de mi cuenta</h3>
         <ion-item>
@@ -184,7 +184,7 @@
               </ion-item>        
   </div>
 
-  <button icon-left ion-button block round>
+  <button icon-left ion-button block round >
       <ion-icon name="archive"></ion-icon>
       Guardar </button>
 
