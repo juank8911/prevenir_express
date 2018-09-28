@@ -28,6 +28,7 @@ plugins/
 plugins/android.json
 plugins/ios.json
 www/
+config.xml
 package-lock.json
 /src/app/global.ts
 # Trash data
