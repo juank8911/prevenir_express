@@ -40,34 +40,55 @@ import { HttpClientModule } from '@angular/common/http';
 import { Camera } from '@ionic-native/camera';
 import { YoutubePipe } from '../pipes/youtube/youtube';
 import { FilterPipe } from '../pipes/filter/filter';
+import {BlancoPageModule} from '../pages/blanco/blanco.module';
+import {CitasPageModule} from '../pages/citas/citas.module';
+import {CitasProvedorPageModule} from '../pages/citas-provedor/citas-provedor.module';
+import {ContactenosPageModule} from '../pages/contactenos/contactenos.module';
+import {FormularioRegistroPageModule} from '../pages/formulario-registro/formulario-registro.module';
+import {FormularioRegistroAdminPageModule} from '../pages/formulario-registro-admin/formulario-registro-admin.module';
+import {ListadoPublicacionesPageModule} from '../pages/listado-publicaciones/listado-publicaciones.module';
+import {ModalCitaPageModule} from '../pages/modal-cita/modal-cita.module';
+import {ModalCitaUserPageModule} from '../pages/modal-cita-user/modal-cita-user.module';
+import {PopoverFiltroPageModule} from '../pages/popover-filtro/popover-filtro.module';
+import {PublicacionesProveedorPageModule} from '../pages/publicaciones-proveedor/publicaciones-proveedor.module';
+import {PublicarServicioPageModule} from '../pages/publicar-servicio/publicar-servicio.module';
+import {RegistroPageModule} from '../pages/registro/registro.module';
+import {SacarCitaPageModule} from '../pages/sacar-cita/sacar-cita.module';
+import {UserPageModule} from '../pages/user/user.module';
+import {WelcomePageModule} from '../pages/welcome/welcome.module';
+import {ServicioPageModule} from '../pages/servicio/servicio.module';
+import {TerminosPageModule} from '../pages/terminos/terminos.module';
+
+
+
 
 
 @NgModule({
   declarations: [
     MyApp,
-    YoutubePipe,
-    FilterPipe,
+    // FilterPipe,
     HomePage,
     TabsPage,
-    ContactenosPage,
-    ServiciosPage,
-    TerminosPage,
-    ServicioPage,
-    SacarCitaPage,
-    PublicacionesProveedorPage,
-    BlancoPage,
-    WelcomePage,
-    RegistroPage,
-    FormularioRegistroPage,
-    PublicarServicioPage,
-    UserPage,
-    ListadoPublicacionesPage,
-    FormularioRegistroAdminPage,
-    CitasPage,
-    ModalCitaPage,
-    PopoverFiltroPage,
-    CitasProvedorPage,
-    ModalCitaUserPage
+    // YoutubePipe,
+    // ContactenosPage,
+    // ServiciosPage,
+    // TerminosPage,
+    // ServicioPage,
+    // SacarCitaPage,
+    // PublicacionesProveedorPage,
+    // BlancoPage,
+    // WelcomePage,
+    // RegistroPage,
+    // FormularioRegistroPage,
+    // PublicarServicioPage,
+    // UserPage,
+    // ListadoPublicacionesPage,
+    // FormularioRegistroAdminPage,
+    // CitasPage,
+    // ModalCitaPage,
+    // PopoverFiltroPage,
+    // CitasProvedorPage,
+    // ModalCitaUserPage
   
 
   ],
@@ -76,7 +97,27 @@ import { FilterPipe } from '../pipes/filter/filter';
     CalendarModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
-    HttpClientModule
+    HttpClientModule,
+    BlancoPageModule,
+    CitasProvedorPageModule,
+    CitasPageModule,
+    ContactenosPageModule,
+    FormularioRegistroPageModule,
+    FormularioRegistroAdminPageModule,
+    ListadoPublicacionesPageModule,
+    ModalCitaPageModule,
+    ModalCitaUserPageModule,
+    PopoverFiltroPageModule,
+    PublicacionesProveedorPageModule,
+    PublicarServicioPageModule,
+    RegistroPageModule,
+    SacarCitaPageModule,
+    UserPageModule,
+    WelcomePageModule,
+    ServicioPageModule,
+    TerminosPageModule,
+    
+  
 
   ],
   bootstrap: [IonicApp],
@@ -102,7 +143,7 @@ import { FilterPipe } from '../pipes/filter/filter';
     ModalCitaPage,
     PopoverFiltroPage,
     CitasProvedorPage,
-    ModalCitaUserPage
+    ModalCitaUserPage,
     
   ],
   providers: [
