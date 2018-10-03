@@ -20,7 +20,6 @@ import * as moment from 'moment';
 })
 export class UserPage {
   base64Image:string;
-  public imagene;
   infoUser;
   foto;
   usuario = {};
@@ -33,6 +32,7 @@ export class UserPage {
   fechaNacimiento:boolean;
   private datosAdmin : FormGroup;
   private datosUser : FormGroup;
+  res;
   
   constructor(public navCtrl: NavController, public navParams: NavParams,private camera: Camera, 
     private global : Global, private api:ApiProvider, private formBuilder: FormBuilder,private toastCtrl:ToastController) {
@@ -41,21 +41,22 @@ export class UserPage {
   }
 
   inicio(){
+
     if (this.global.admin === false)
    {
     /////////////////////////////////Usuario///////////////////////////////////////////////////
-
+    console.log("USERRRRRRRRRRR")
     this.infoUser = this.global.infoPerfil;
-    this.foto = this.global.apiUrl+this.infoUser.avatar;
+    this.foto = this.infoUser.avatar;
     
     if(!this.infoUser.fecha_nacimiento){
-      // console.log("AQUII");
+      console.log("AQUII");
       this.fechaNacimiento = false;
     }else{
-      // console.log("ACAAA");
+      console.log("ACAAA");
       this.fechaNacimiento = true;
       var ff = moment(this.infoUser.fecha_nacimiento ).format('DD-M-YYYY');
-      console.log(ff);
+      
     }
    
     
@@ -66,7 +67,7 @@ export class UserPage {
       apellidos: [this.infoUser.apellidos, [Validators.required, Validators.minLength(4),Validators.maxLength(40)]],
       identificacion : [this.infoUser.cedula,[Validators.required]],
       direccion : [this.infoUser.direccion],
-      telefono : [this.infoUser.telefono,[Validators.pattern('[0-9]*')]],
+      telefono : [this.infoUser.telefono,[Validators.required,Validators.pattern('[0-9]*')]],
       whats : [this.infoUser.telefonowatshapp],
       fecha : [''],
       fecha2 : [ff],
@@ -102,25 +103,6 @@ export class UserPage {
   }
 
 
- 
-
-  // validacionesUser(){
-   
-  //   this.datos = this.formBuilder.group({
-
-  //     email: ['', [Validators.required,Validators.email,Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')]],
-  //     nombres: [this.nombre, [Validators.required, Validators.minLength(4),Validators.maxLength(40)]],
-  //     apellidos: [this.apellidos, [Validators.required, Validators.minLength(4),Validators.maxLength(40)]],
-  //     identificacion : [this.identificacion,[Validators.required]],
-  //     direccion : [this.direccion],
-  //     telefono : [this.telefono],
-  //     whats : [this.whats],
-      
-   
-
-  //   });
-    
-  // }
 
   openGalery(){
     const options: CameraOptions = {
@@ -146,7 +128,8 @@ export class UserPage {
     }
    
       this.camera.getPicture(options).then((imageData)=>{   
-        this.imagene.push({foto : 'data:image/jpeg;base64,'+imageData});
+        this.base64Image = 'data:image/jpeg;base64,'+imageData;
+
       },(err)=>{
   
       });
@@ -157,9 +140,10 @@ export class UserPage {
   }
   datosUsr(){
     
-    if(this.fechaNacimiento = true){
+    console.log(this.fechaNacimiento);
+    if(this.fechaNacimiento === false){
 
-     
+     console.log("Aqui");
       var fecha1 = moment(this.datosUser.value.fecha); //fecha de nacimiento
       var today = moment(new Date().toISOString()).format('YYYY-M-DD');
       var fecha2 = moment(today);  //fecha actual
@@ -181,9 +165,15 @@ export class UserPage {
 
 
           this.api.editUser(datos).then((data)=>{
-            console.log(data);
+            this.res = data;
+            if(this.res.update === true){
+              this.presentToast("Datos actualizados con exito");
+              this.navCtrl.pop();
+            }else{
+              this.presentToast("Por favor llena los datos requeridos");
+            }
           },(err)=>{
-            console.log(err);
+            this.presentToast("Error al actualizar, intentalo más tarde");
           });
 
   
@@ -196,9 +186,15 @@ export class UserPage {
       fecha_nacimiento:this.infoUser.fecha_nacimiento, id:this.global.id_usuario}
         console.log(datos);
       this.api.editUser(datos).then((data)=>{
-        console.log(data);
+        this.res = data;
+        if(this.res.update === true){
+          this.presentToast("Datos actualizados con exito");
+          this.navCtrl.pop();
+        }else{
+          this.presentToast("Por favor llena los datos requeridos");
+        }
       },(err)=>{
-        console.log(err);
+        this.presentToast("Error al actualizar, intentalo más tarde");
       });
 
     }
@@ -208,25 +204,34 @@ export class UserPage {
 
     datosProv(){
 
-      // email: [this.infoUser.correo, [Validators.required,Validators.email,Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')]],
-      // nombres: [this.infoUser.nombre, [Validators.required, Validators.minLength(4),Validators.maxLength(40)]],
-      // nit : [this.infoUser.nit,[Validators.required]],
-      // direccion : [this.infoUser.direccion],
-      // telefono : [this.infoUser.telefono],
-      // whats : [this.infoUser.telefonowatshapp],
-      // descripcion : [this.infoUser.descripcion],
-      // web : ['',[Validators.pattern('(?:(?:(?:ht|f)tp)s?://)?[\\w_-]+(?:\\.[\\w_-]+)+([\\w.,@?^=%&:/~+#-]*[\\w@?^=%&/~+#-])?')]],
-      // youtube : ['',[Validators.pattern('(?:(?:(?:ht|f)tp)s?://)?[\\w_-]+(?:\\.[\\w_-]+)+([\\w.,@?^=%&:/~+#-]*[\\w@?^=%&/~+#-])?')]],
-     
       let datos = {nit:this.datosAdmin.value.nit, correo:this.datosAdmin.value.email, nombre:this.datosAdmin.value.nombres,
       direccion:this.datosAdmin.value.direccion, telefono : this.datosAdmin.value.telefono, whatsapp: this.datosAdmin.value.whats,
       descripcion: this.datosAdmin.value.descripcion, link: this.datosAdmin.value.web, video: this.datosAdmin.value.video,id:this.global.id_usuario };
       this.api.editProv(datos).then((data)=>{
-        console.log(data);
+        this.res = data;
+        if(this.res.update === true){
+          this.presentToast("Datos actualizados con exito");
+          this.navCtrl.pop();
+        }else{
+          this.presentToast("Por favor llena los datos requeridos");
+        }
+      },(err)=>{
+        this.presentToast("Error al actualizar, intentalo más tarde");
+      });
+
+    }
+
+    guardarAvatar(){
+      // console.log(this.imagen);
+      this.api.editAvatar(this.base64Image,this.global.id_usuario,this.global.admin).then((data)=>{
+        let a = data[0].cambio;
+        if(a === true){
+          this.presentToast("Avatar cambiado con exito");
+        }
+
       },(err)=>{
         console.log(err);
       });
-
     }
 
     presentToast(msg) {

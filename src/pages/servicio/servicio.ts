@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,ToastController } from 'ionic-angular';
 import { SacarCitaPage } from '../sacar-cita/sacar-cita';
 import { PublicacionesProveedorPage } from '../publicaciones-proveedor/publicaciones-proveedor';
 import {ApiProvider} from '../../providers/api/api';
@@ -35,10 +35,15 @@ export class ServicioPage {
  public usr;
  service;
  fotos = [];
+ nombreUser;
+ correoUser;
+ correoProv;
+ asunt;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private api:ApiProvider,private formBuilder: FormBuilder,private global : Global) {
+    private api:ApiProvider,private formBuilder: FormBuilder,private global : Global,
+    private toastCtrl:ToastController) {
       // this.user();
       this.servicio = navParams.get('servicio');
       console.log(this.servicio);
@@ -88,6 +93,10 @@ export class ServicioPage {
     // },(err)=>{
 
     // });
+
+    this.nombreUser = this.global.nombre;
+    this.correoUser = this.global.infoPerfil;
+    this.correoUser = this.correoUser.correo;
   }
 
   getProveedor(){
@@ -101,18 +110,13 @@ export class ServicioPage {
       this.descripcion = this.prov.descripcion;
       this.logo = this.global.apiUrl +this.prov.avatar;
       this.id = this.prov.id_provedor;
-  
+      this.correoProv = this.prov.correo;
       
     },(error)=>{
       console.log(error);
     });
   }
 
-  usuario(){
-
-  }
-
- 
 
 sacarCita(idProduct)
 {
@@ -125,8 +129,38 @@ goToMaspublicaciones(){
   this.navCtrl.push(PublicacionesProveedorPage,{provedor:this.prov});
 }
 
+asunto(ev){
+  this.asunt = ev;
+}
+
+
 mensaje(){
-  console.log("mensaje");
+  let mensaje = this.datos.value.descripcion;
+  this.correoUser;
+  this.correoProv;
+
+  if(!this.asunt){
+    this.presentToast("Debes elegin un asunto antes de enviar el mensaje");
+  }
+  else{
+    let correo = {remitente:this.correoUser, destino:this.correoProv , texto:mensaje , asunto:this.asunt };
+    console.log(correo);
+    this.api.enviarMensaje(correo).then((data)=>{
+      console.log(data);
+    },(err)=>{
+      console.log(err);
+    });
+  }
+
+
+}
+
+presentToast(msg) {
+  let toast = this.toastCtrl.create({
+    message: msg,
+    duration: 3000
+  });
+  toast.present();
 }
 
 

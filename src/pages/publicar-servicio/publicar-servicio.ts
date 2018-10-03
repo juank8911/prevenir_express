@@ -129,7 +129,7 @@ export class PublicarServicioPage {
       let dia = days[i];
       this.ds.push({dia});
     }
-    console.log(this.ds);
+    // console.log(this.ds);
   }
 
 
@@ -150,7 +150,7 @@ export class PublicarServicioPage {
 
   validacionAgregar(){
     this.datos = this.formBuilder.group({
-      nombre: ['', [Validators.required, Validators.minLength(4),Validators.maxLength(20)]],
+      nombre: ['', [Validators.required, Validators.minLength(4),Validators.maxLength(50)]],
       duracion :['',[Validators.required,Validators.max(60),Validators.min(15)]],
       precio: ['',[Validators.required,Validators.min(0)]],
       descuento: ['',[Validators.max(100),Validators.min(0)]],
@@ -219,7 +219,8 @@ export class PublicarServicioPage {
     this.api.getCategorias()
   	.subscribe(
     (data)=>{this.ctgas=data;
-    console.log(this.ctgas)},
+    // console.log(this.ctgas)
+  },
   	(error)=>{console.log(error);})
   }
   categoriaSelect(selectedValue: any){
@@ -236,55 +237,6 @@ export class PublicarServicioPage {
     // console.log(this.maxCitas);
   }
 
-  // validacionesHorarios(){
-
-  //   if(this.valHor === false)
-  //   {
-  //     let mdesde = parseInt(this.mdesde);
-  //     let mhasta = parseInt(this.mhasta);
-  //     let tdesde = parseInt(this.tdesde);
-  //     let thasta = parseInt(this.thasta);
-  //     let mdesde2 = parseInt(this.mdesde2);
-  //     let mhasta2 = parseInt(this.mhasta2);
-  //     let tdesde2 = parseInt(this.tdesde2);
-  //     let thasta2 = parseInt(this.thasta2);
-  //     let mdesde3 = parseInt(this.mdesde3);
-  //     let mhasta3 = parseInt(this.mhasta3);
-  //     let tdesde3 = parseInt(this.tdesde3);
-  //     let thasta3 = parseInt(this.thasta3);
-  
-  
-  //       if(!this.dias){
-  //         this.presentToast("Por favor selecciona dias en el horario 1");
-  //       }else if((!mhasta && !mdesde) || (!thasta && !tdesde) ){
-  //         this.presentToast("Seleciona horas de atención en el horario 1");
-  //       }
-  //       else  if(mhasta < mdesde || thasta < tdesde){
-  //         this.presentToast("La hora de la inicio es mayor a la de finalización en el horario 1");
-  //       }
-  //       else if(this.f2 === true && !this.dias2){
-  //        this.presentToast("Por favor selecciona dias en el horario 2");
-  //       }
-  //       else if((!mhasta2 && !mdesde2) || (!thasta2 && !tdesde2) ){
-  //         this.presentToast("Seleciona horas de atención en el horario 2");
-  //       }
-  //       else if (mhasta2 < mdesde2 || thasta2 < tdesde2)
-  //       {
-  //         this.presentToast("La hora de la inicio es mayor a la de finalización en el horario 2");
-  //       }
-  //       else if(this.f3 === true && !this.dias3){
-  //         this.presentToast("Por favor selecciona dias en el horario 3");
-  //       }else if((!mhasta3 && !mdesde3) || (!thasta3 && !tdesde3) ){
-  //         this.presentToast("Seleciona horas de atención en el horario 2");
-  //       }
-  //       else if (mhasta3 < mdesde3 || thasta3 < tdesde3)
-  //       {
-  //         this.presentToast("La hora de la inicio es mayor a la de finalización en el horario 3");
-  //       }
-
-  //   }
-  // }
-
   validacionh1(){
         let mdesde = parseInt(this.mdesde);
         let mhasta = parseInt(this.mhasta);
@@ -293,7 +245,7 @@ export class PublicarServicioPage {
         
            if(!this.dias){
               this.presentToast("Por favor selecciona dias en el horario 1");
-            }else if((!mhasta && !mdesde) || (!thasta && !tdesde) ){
+            }else if((!mhasta || !mdesde) &&  (!thasta || !tdesde) ){
               this.presentToast("Seleciona horas de atención en el horario 1");
             }
             else  if(mhasta < mdesde || thasta < tdesde){
@@ -312,7 +264,7 @@ export class PublicarServicioPage {
             if(!this.dias2){
              this.presentToast("Por favor selecciona dias en el horario 2");
             }
-            else if((!mhasta2 && !mdesde2) || (!thasta2 && !tdesde2) ){
+            else if((!mhasta2 || !mdesde2) &&  (!thasta2 || !tdesde2) ){
               this.presentToast("Seleciona horas de atención en el horario 2");
             }
             else if (mhasta2 < mdesde2 || thasta2 < tdesde2)
@@ -331,8 +283,8 @@ export class PublicarServicioPage {
 
       if(this.f3 === true && !this.dias3){
         this.presentToast("Por favor selecciona dias en el horario 3");
-      }else if((!mhasta3 && !mdesde3) || (!thasta3 && !tdesde3) ){
-        this.presentToast("Seleciona horas de atención en el horario 2");
+      }else if((!mhasta3 || !mdesde3) &&  (!thasta3 || !tdesde3) ){
+        this.presentToast("Seleciona horas de atención en el horario 3");
       }
       else if (mhasta3 < mdesde3 || thasta3 < tdesde3)
       {
@@ -420,33 +372,65 @@ export class PublicarServicioPage {
     if(!this.editar){
 
    /////////////////////////// Validaciones horarios ////////////////////////////////
-      let hor:boolean = true;
+      
+    let hor:boolean = true;
+    var tbn:boolean = true;
 
-      if(hor === true)
-      {
-        if(this.f3 === true){
-          this.validacionh3();
-            if(this.h3 === true){
-              var tdb:boolean = true;
-            }
-        } 
-        else{
-            tdb=true;
-        }
+      switch(hor === true){
+
+        case this.h1 === false:
+        this.validacionh1();
+        // console.log("1");
+        break;
+
+        case (this.h1 === true && this.f2 === false && this.f3 === false):
+        // console.log("registrar");
+        this.enviar();
+        break;
+
+        case (this.h1 === true && this.h2 === true && this.f3 === false):
+        // console.log("AQUIIIIIIII REGISTRARRRR");
+        this.enviar();
+        break;
+
+        case (this.h1 === true && this.h2 === true && this.h3 === true):
+        // console.log("registrar");
+        this.enviar();
+        break;
+
+        case ( this.f3 === true):
+        this.validacionh3();
+        break;
+
+        case (this.h1 === true && this.f2 === true ):
+        this.validacionh2();
+        break;
+
+       
+
       }
-   
-      ////////////////////////////////Validaciones formulario ///////////////////////////////////
+    
+   }
+   else{
+    let formularioEdit = {"id_usuario":this.global.id_usuario,"token":this.token2,"nombre":this.datos.value.nombre,"precio":this.datos.value.precio,
+    "descuento":this.datos.value.descuento, "duracion":this.datos.value.duracion,"id_mncp":this.mncpSelect,"id_ctga":this.cateSelect, "imagenes":this.imagenes,
+    "video":this.datos.value.video,"max_citas":this.maxCitas,"descripcion":this.datos.value.descripcion};
+    this.api.editService(formularioEdit);
+   }
+  }
 
-    if(tdb === true && this.imagenes.length < 1)
-    {
-      this.presentToast("Debes elegir almenos una imagen");
+  enviar(){
+
+    if(this.imagenes.length < 1){
+       this.presentToast("Debes elegir almenos una imagen");
     }
-    else 
-    if(!this.mncpSelect)
+    else if(!this.mncpSelect)
     {
       this.presentToast("Debes elegir un municipio");
     }else if(!this.cateSelect){
       this.presentToast("Debes elegir una categoria");
+    }else if(!this.maxCitas){
+      this.presentToast("Por favor selecciona un número maximo de citas por hora");
     }
      else if(!this.datos.valid) {
       this.presentToast("completa los campos requeridos");
@@ -478,7 +462,7 @@ export class PublicarServicioPage {
     this.loading.present();
 
     this.api.postImages(formulario).then((data)=>{
-      console.log("AQUIIIIII");
+      // console.log("AQUIIIIII");
       console.log(data);
       this.res = data;
       this.res = this.res[0];
@@ -497,21 +481,13 @@ export class PublicarServicioPage {
     this.presentToast("Error en la conexion intentalo mas tarde")
     });
   
-  
-    }
-   }
-   else{
-    let formularioEdit = {"id_usuario":this.global.id_usuario,"token":this.token2,"nombre":this.datos.value.nombre,"precio":this.datos.value.precio,
-    "descuento":this.datos.value.descuento, "duracion":this.datos.value.duracion,"id_mncp":this.mncpSelect,"id_ctga":this.cateSelect, "imagenes":this.imagenes,
-    "video":this.datos.value.video,"max_citas":this.maxCitas,"descripcion":this.datos.value.descripcion};
-    this.api.editService(formularioEdit);
-   }
+     }
   }
 
   presentToast(msg) {
     let toast = this.toastCtrl.create({
       message: msg,
-      duration:6000
+      duration:5000
     });
     toast.present();
   }
@@ -530,6 +506,7 @@ mdesdef1(ev){
 }
 mhastaf1(ev){
   this.mhasta=ev;
+  this.validacionh1();
 }
 tdesdef1(ev){
   console.log(ev);
@@ -538,6 +515,7 @@ tdesdef1(ev){
 thastaf1(ev){
   console.log(ev);
  this.thasta=ev;
+ this.validacionh1();
 
 }  
 
@@ -550,12 +528,14 @@ this.mdesde2=ev;
 }
 mhastaf2(ev){
 this.mhasta2=ev;
+this.validacionh2();
 }
 tdesdef2(ev){
 this.tdesde2=ev;
 }
 thastaf2(ev){
 this.thasta2=ev;
+this.validacionh2();
 
 }  
 diasF3(ev){
@@ -566,12 +546,14 @@ this.mdesde3=ev;
 }
 mhastaf3(ev){
 this.mhasta3=ev;
+this.validacionh3();
 }
 tdesdef3(ev){
 this.tdesde3=ev;
 }
 thastaf3(ev){
 this.thasta3=ev;
+this.validacionh3();
 }  
 
 }

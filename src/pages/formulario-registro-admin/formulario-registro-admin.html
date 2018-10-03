@@ -18,7 +18,7 @@
         <ion-item *ngIf="datos.get('nombre').errors && datos.get('nombre').dirty">
             <p color="danger" ion-text *ngIf="datos.get('nombre').hasError('required')">* El campo es requerido</p>
             <p color="danger" ion-text *ngIf="datos.get('nombre').hasError('minlength')">cantidad minima de caracteres (4)</p>
-            <p color="danger" ion-text *ngIf="datos.get('nombre').hasError('maxlength')">cantidad maxima de caracteres (20)</p>
+            <p color="danger" ion-text *ngIf="datos.get('nombre').hasError('maxlength')">cantidad maxima de caracteres (40)</p>
           </ion-item>
         <ion-item>
             <ion-label>

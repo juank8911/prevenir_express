@@ -16,6 +16,11 @@
 <ion-content padding>
 
     <div *ngIf="!global.admin">
+      <div *ngIf="mostrar">
+        <br>
+      
+      <h1 class="h1" >No hay citas disponibles</h1>
+    </div>
   <ion-list>
   <div *ngFor="let c of inf">
     <ion-item>
@@ -26,7 +31,7 @@
     <p>Hora : {{c.hora}}</p>
     
     <br>
-    <button ion-button icon-left  (click)="ver(c.id_eventos)">
+    <button ion-button icon-left  (click)="ver(c)">
       <ion-icon name="eye"></ion-icon>
       Ver</button>
       <button ion-button icon-left color="danger"  (click)="eliminar(c.id_eventos)">
@@ -40,6 +45,8 @@
 </div>
 
 <div *ngIf="global.admin">
+
+<h4 class="h4" *ngIf="mostrar">No tienes servicios, crea una publicación</h4>
 
     <ion-list>
       <div class="item">

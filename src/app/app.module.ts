@@ -16,10 +16,10 @@ import { ServicioPage } from '../pages/servicio/servicio';
 import { SacarCitaPage } from '../pages/sacar-cita/sacar-cita';
 import { PublicacionesProveedorPage } from '../pages/publicaciones-proveedor/publicaciones-proveedor';
 import {BlancoPage} from '../pages/blanco/blanco';
+// import { IonicPageModule } from 'ionic-angular';
 import {WelcomePage} from '../pages/welcome/welcome';
 import {RegistroPage} from '../pages/registro/registro';
 import {FormularioRegistroPage} from '../pages/formulario-registro/formulario-registro';
-import {BeneficiariosPage} from '../pages/beneficiarios/beneficiarios';
 import {FormularioRegistroAdminPage} from '../pages/formulario-registro-admin/formulario-registro-admin';
 import {UserPage} from '../pages/user/user';
 import { IonicStorageModule } from '@ionic/storage';
@@ -27,11 +27,10 @@ import {Global} from './global';
 import {PublicarServicioPage} from '../pages/publicar-servicio/publicar-servicio';
 import { ImagePicker } from '@ionic-native/image-picker';
 import {ListadoPublicacionesPage} from '../pages/listado-publicaciones/listado-publicaciones';
-import {AgregarBeneficiarioPage} from '../pages/agregar-beneficiario/agregar-beneficiario';
-import {ActualizarServicioPage} from '../pages/actualizar-servicio/actualizar-servicio';
 import {ModalCitaPage} from '../pages/modal-cita/modal-cita';
 import {PopoverFiltroPage} from '../pages/popover-filtro/popover-filtro';
 import {CitasProvedorPage} from '../pages/citas-provedor/citas-provedor';
+import {ModalCitaUserPage} from '../pages/modal-cita-user/modal-cita-user';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -63,14 +62,12 @@ import { FilterPipe } from '../pipes/filter/filter';
     PublicarServicioPage,
     UserPage,
     ListadoPublicacionesPage,
-    BeneficiariosPage,
     FormularioRegistroAdminPage,
-    AgregarBeneficiarioPage,
     CitasPage,
-    ActualizarServicioPage,
     ModalCitaPage,
     PopoverFiltroPage,
-    CitasProvedorPage
+    CitasProvedorPage,
+    ModalCitaUserPage
   
 
   ],
@@ -100,14 +97,12 @@ import { FilterPipe } from '../pipes/filter/filter';
     PublicarServicioPage,
     UserPage,
     ListadoPublicacionesPage,
-    BeneficiariosPage,
     FormularioRegistroAdminPage,
-    AgregarBeneficiarioPage,
     CitasPage,
-    ActualizarServicioPage,
     ModalCitaPage,
     PopoverFiltroPage,
-    CitasProvedorPage
+    CitasProvedorPage,
+    ModalCitaUserPage
     
   ],
   providers: [

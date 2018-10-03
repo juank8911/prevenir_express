@@ -19,12 +19,16 @@
         <ion-icon name="create"></ion-icon>
           Crear publicación
       </button>
+
+      <h4 class="h4" *ngIf="mostrar">No tienes publicaciones, crea una</h4>
+
+
   <ion-list>
-    <div class="carta" *ngFor="let pub of publicaciones">
+    <div class="carta" *ngFor="let pub of inf">
      
    <ion-card>
     <ion-card-header>
-     <img src="/assets/imgs/logo-grande-negro.png" alt="">
+     <img [src]="pub.foto" alt="">
     </ion-card-header>
     <ion-card-content>
       <p>Nombre : {{pub.nombre}}</p>
@@ -33,8 +37,8 @@
       <br>
       <div>
           <button ion-button small color="prevenir"><ion-icon name="eye" (click)="viewService(pub)"></ion-icon></button>
-          <button ion-button small color="energized"><ion-icon name="create" (click)="updateService(pub)"></ion-icon></button>
-          <button ion-button small color="danger"><ion-icon name="trash" (click)="presentConfirm(pub.id_servicios)"></ion-icon></button>
+          <!-- <button ion-button small color="energized"><ion-icon name="create" (click)="updateService(pub)"></ion-icon></button> -->
+          <button ion-button small color="danger"><ion-icon name="trash" (click)="presentConfirm(pub.id_servicio)"></ion-icon></button>
       </div>
     </ion-card-content>
   </ion-card>

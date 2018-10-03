@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, AlertController,ModalController } from 'ionic-angular';
 import {ApiProvider} from '../../providers/api/api';
 import {Global} from '../../app/global';
 import * as moment from 'moment';
 import {CitasProvedorPage} from '../citas-provedor/citas-provedor';
+import {ModalCitaUserPage} from '../modal-cita-user/modal-cita-user';
 
 /**
  * Generated class for the CitasPage page.
@@ -25,11 +26,13 @@ export class CitasPage {
   servicios;
   url;
   foto;
+  res;
+  mostrar:boolean=false;
 
  
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private api : ApiProvider,
-    private global:Global) {
+    private global:Global, private toastCtrl:ToastController,private alertCtrl: AlertController,private modalCtrl: ModalController) {
     this.usuario_id = this.global.id_usuario;
     this.usuario_id = parseInt(this.usuario_id);
     this.url = this.global.apiUrl;
@@ -48,9 +51,20 @@ export class CitasPage {
   getServicios(){
     let id = parseInt(this.global.id_usuario);
     this.api.getPublicacionesProveedor(id).subscribe((data)=>{
-      this.servicios = data;
-      console.log(this.servicios);
-      this.getFoto();
+      
+
+      let a = data[0].servicios;
+      // console.log(a);
+      if(a === false){
+        this.mostrar = true;
+      }else{
+        this.mostrar = false;
+        this.servicios = data;
+        this.getFoto();
+      }
+      
+
+
     },(err)=>{
       console.log(err);
     });
@@ -59,7 +73,7 @@ export class CitasPage {
   getCitas(){
     this.api.getCitasUsuario(this.usuario_id).subscribe((data)=>{
       this.citas = data;
-      console.log(this.citas);
+      // console.log(this.citas);
       
       // let p = this.citas[0];
       // p = moment(p.start).format('DD-M-YYYY HH:mm:ss a');
@@ -72,7 +86,7 @@ export class CitasPage {
   }
 
   getFoto(){
-    console.log("OEEEE");
+    // console.log("OEEEE");
     for(var i = 0 ; i < this.servicios.length; i++)
     {
       let foto = this.servicios[i].foto;
@@ -86,43 +100,101 @@ export class CitasPage {
 
       this.servicio.push({id_servicios:id, nombre:nombre, foto:f, descripcion:descripcion});
     }
-    console.log(this.servicio);
+    // console.log(this.servicio);
   }
   
   info(){
-    console.log("AQUI");
-    for(var i = 0; i < this.citas.length; i ++){
+   
+    if(this.citas.length == 0)
+    {
+      console.log("AQUI");
+      this.mostrar = true;
+    }else{
+
+
+      for(var i = 0; i < this.citas.length; i ++){
       
-      let p = this.citas[i];
-      p = moment(p.start).format('DD-M-YYYY hh:mm a');
-      p = p.split(' ');
-      let p1 = p[0];
-      let p2 = p[1];
-      p2 = p2 +" "+ p[2];
-      let id_servicio = this.citas[i].servicios_idservicios;
-      let nombre = this.citas[i].nombre;
-      let id_eventos = this.citas[i].id_eventos;
-
-      this.inf.push({fecha:p1, hora: p2, id_servicio:id_servicio,nombre:nombre,id_eventos:id_eventos});
-
+        let p = this.citas[i];
+        p = moment(p.start).format('DD-M-YYYY hh:mm a');
+        p = p.split(' ');
+        let p1 = p[0];
+        let p2 = p[1];
+        p2 = p2 +" "+ p[2];
+        let id_servicio = this.citas[i].servicios_idservicios;
+        let nombre = this.citas[i].nombre;
+        let id_eventos = this.citas[i].id_eventos;
+  
+        this.inf.push({fecha:p1, hora: p2, id_servicio:id_servicio,nombre:nombre,id_eventos:id_eventos});
+  
+      }
     }
+    
      
     console.log(this.inf);
     }
 
     eliminar(id){
-      this.api.dltCita(id).then((data)=>{
-        console.log(data);
-      },(err)=>{console.log(err)});
+
+      let alert = this.alertCtrl.create({
+        title: 'Confirmación',
+        message: '¿ Estas seguro que deseas eliminar esta cita?',
+        buttons: [
+          {
+            text: 'Cancelar',
+            role: 'cancel',
+            handler: () => {
+             
+            }
+          },
+          {
+            text: 'Confirmar',
+            handler: () => {
+             
+              this.api.dltCita(id).then((data)=>{
+                this.res = data;
+        
+                if(this.res.borrado === true){
+                  this.presentToast("Su cita fue eliminada con exito");
+                  this.navCtrl.pop();
+                  
+                }else{
+                  this.presentToast("No puedes eliminar una cita 24 horas antes");
+                }
+        
+              },(err)=>{console.log(err)});
+
+            }
+          }
+        ]
+      });
+      alert.present();
+
     }
 
 
-    ver(id){
-      console.log(id);
+    ver(info){
+      console.log(info);
+
+
+      let modal = this.modalCtrl.create(ModalCitaUserPage,{info:info});
+        modal.present();
+
+        modal.onDidDismiss((data)=>{
+          console.log(data);
+        });
+   
     }
 
     verCitas(id,nombre){
       this.navCtrl.push(CitasProvedorPage,{id_servicios:id, nombre:nombre});
+    }
+
+    presentToast(msg) {
+      let toast = this.toastCtrl.create({
+        message: msg,
+        duration: 3000
+      });
+      toast.present();
     }
   
 }

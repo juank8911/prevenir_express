@@ -11,7 +11,7 @@
           <ion-label >
             <ion-icon name ="person"></ion-icon>
           </ion-label>
-          <ion-input type="text" placeholder="nombre" formControlName="nombre" ></ion-input>
+          <ion-input type="text" placeholder="nombres" formControlName="nombre" ></ion-input>
         </ion-item>
         <ion-item *ngIf="datos.get('nombre').errors && datos.get('nombre').dirty">
             <p color="danger" ion-text *ngIf="datos.get('nombre').hasError('required')">* El campo es requerido</p>
@@ -21,7 +21,7 @@
           <ion-label>
             <ion-icon name="person"></ion-icon>
           </ion-label>
-          <ion-input type="text" placeholder="apellido" formControlName="apellido"></ion-input>
+          <ion-input type="text" placeholder="apellidos" formControlName="apellido"></ion-input>
         </ion-item>
         <ion-item *ngIf="datos.get('apellido').errors && datos.get('apellido').dirty">
             <p color="danger" ion-text *ngIf="datos.get('apellido').hasError('required')">* El campo es requerido</p>
@@ -65,9 +65,7 @@
        
      
     </form>
-     
-   
-
+    
       <button ion-button (click)="registroFacebook()" icon-left color="facebook" round block>
         <ion-icon name="logo-facebook"></ion-icon>
         Registrar con facebook</button>

@@ -26,6 +26,7 @@ export class ModalCitaPage {
   contacto;
   correo;
   avatar;
+  cedula;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public viewCtrl: ViewController,
@@ -43,15 +44,16 @@ export class ModalCitaPage {
 
   paciente() {
     this.api.getUser(this.usuarios_id).subscribe((data)=>{
-      console.log("AQUIIII");
+      console.log(data);
       this.user = data[0];
       this.nombre= data[0].nombre;
       this.apellido = data[0].apellidos;
       this.fechaNacimiento = data[0].feha_nacimiento;
       this.fechaNacimiento = moment(this.fechaNacimiento).format('DD-MM-YYYY');
-      this.contacto = data[0].telefonowatshapp;
+      this.contacto = data[0].telefono;
       this.correo = data[0].correo;
-      this.avatar = this.global.apiUrl+data[0].avatar;
+      this.avatar = data[0].avatar;
+      this.cedula = data[0].cedula;
       
     },(err)=>{console.log(err)});
   }

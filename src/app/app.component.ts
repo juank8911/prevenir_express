@@ -13,7 +13,7 @@ import { TerminosPage } from '../pages/terminos/terminos';
 import {UserPage} from '../pages/user/user';
 import { SacarCitaPage } from '../pages/sacar-cita/sacar-cita';
 import { WelcomePage } from '../pages/welcome/welcome';
-import {BeneficiariosPage} from '../pages/beneficiarios/beneficiarios';
+// import {BeneficiariosPage} from '../pages/beneficiarios/beneficiarios';
 import {BlancoPage} from '../pages/blanco/blanco';
 import {ListadoPublicacionesPage} from '../pages/listado-publicaciones/listado-publicaciones';
 import {Global} from './global';
@@ -103,9 +103,9 @@ export class MyApp {
  pubicar(){
    this.nav.push(ListadoPublicacionesPage);
  }
- beneficiarios(){
-   this.nav.push(BeneficiariosPage)
- }
+//  beneficiarios(){
+//    this.nav.push(BeneficiariosPage)
+//  }
  goToTerminos(){
    this.nav.push(TerminosPage);
  }

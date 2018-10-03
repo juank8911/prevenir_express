@@ -30,7 +30,7 @@
     <h1 *ngIf="hr" class="h1">No disponible</h1>
     <div *ngIf="!hr">
       <div class="medio">
-        <h1>Mañana</h1>
+        <h2>Mañana</h2>
     
       <ion-list class="accordion-list">
         <ion-list-header *ngFor="let item of maniana; let i = index" no-lines no-padding>
@@ -51,6 +51,7 @@
                       <ion-item *ngIf="!child.citas" ion-item detail-none class="child-item" text-wrap>
                           <h2>{{ child.nombres }}</h2>
                           <!-- <p text-lowercase>{{ child.information }}</p> -->
+                          <button ion-button outline item-end color="danger" (click)="eliminar(child.id_eventos)">Eliminar</button>
                           <button ion-button outline item-end (click)="verCita(child)">Ver</button>
                         </ion-item>
     
@@ -62,7 +63,7 @@
     </div>
     
     <div>
-      <h1>Tarde</h1>
+      <h2>Tarde</h2>
       <ion-list class="accordion-list">
           <ion-list-header *ngFor="let item of tarde; let i = index" no-lines no-padding>
             
@@ -81,6 +82,7 @@
                         <ion-item *ngIf="!child.citas" ion-item detail-none class="child-item" text-wrap>
                             <h2>{{ child.nombres }}</h2>
                             <!-- <p text-lowercase>{{ child.information }}</p> -->
+                            <button ion-button outline item-end color="danger" (click)="eliminar(child.id_eventos)">Eliminar</button>
                             <button ion-button outline item-end (click)="verCita(child)">Ver</button>
                           </ion-item>
       

@@ -30,6 +30,7 @@ export class SacarCitaPage {
   id_usuario;
   f;
   val;
+ 
   
   constructor(public navCtrl: NavController, public navParams: NavParams,private api : ApiProvider,
     private global : Global,private alertCtrl: AlertController,private toastCtrl:ToastController) {
@@ -44,10 +45,15 @@ export class SacarCitaPage {
       
   }
 
+  
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad SacarCitaPage');
     this.validacion();
+    
   }
+
+ 
 
   onDaySelect(ev)
   {
@@ -135,7 +141,7 @@ export class SacarCitaPage {
     let alert = this.alertCtrl.create({
       title: 'Confirmacion',
       message: 'Estas seguro que deseas sacar una cita a las '+hora+" del "+this.f+
-      ". Ten en cuenta que no podras eliminar la cita 24 horas antes de la fecha elegida.",
+      ". Ten en cuenta que solo podras eliminar la cita 24 horas antes de la fecha elegida.",
       buttons: [
         {
           text: 'Cancelar',
@@ -150,6 +156,7 @@ export class SacarCitaPage {
            
             if(!tarde)
               {
+                console.log(this.val);
                 if(this.val.datos === false){
                   this.presentToast('Por favor completa en "Mi cuenta" los campos requeridos antes de sacar la cita');
                      }
@@ -161,12 +168,24 @@ export class SacarCitaPage {
                 let start = this.f + " " + h;
                 let info = {color:"#07a9df" , start:start,usuario:this.id_usuario,servicio:this.id_servicio};
                 console.log(info);
-                this.api.guardarCita(info).then((data)=>{
+
+                let today = moment(new Date().toISOString()).format('YYYY-M-DD HH:mm:ss');
+                let today2 = moment(today);
+                let st = moment(start);
+                let hours = st.diff(today2, 'hours');
+              
+                if (hours < 2){
+                  this.presentToast("No se puede sacar una cita 2 horas antes. Por favor escoge otro horario");
+                }
+                else 
+                {
+                  console.log(info);
+                    this.api.guardarCita(info).then((data)=>{
                   console.log(data);
                   let a = data;
                   a = a[0].agregado;
                   if(true){
-                    this.presentToast("Su cita fue agregada con exito, Revisa tu historial de citas");
+                    this.presentToast("Su cita fue agregada con exito, Revisa mis citas");
                     this.navCtrl.setRoot(HomePage);
                   }
                   
@@ -177,6 +196,9 @@ export class SacarCitaPage {
                 },(err)=>{
                   this.presentToast("Error en la conexion, intentalo mas tarde");
                 });
+                }
+
+             
                  }
                }
           else{
@@ -192,17 +214,39 @@ export class SacarCitaPage {
                let start = this.f + " " + h;
                let info = {color:"#07a9df" , start:start,usuario:this.id_usuario,servicio:this.id_servicio};
                console.log(info);
-               this.api.guardarCita(info).then((data)=>{
+
+
+               let today = moment(new Date().toISOString()).format('YYYY-M-DD HH:mm:ss');
+               let today2 = moment(today);
+               let st = moment(start);
+               let hours = st.diff(today2, 'hours');
+               console.log(hours);
+               if (hours < 2){
+                 this.presentToast("No se puede sacar una cita 2 horas antes. Por favor escoge otro horario");
+               }
+               else{
+
+                this.api.guardarCita(info).then((data)=>{
                 let a = data;
                 a = a[0].agregado;
-                if(true){
+                let b = data;
+                b = b[0].reservado;
+                console.log(data);
+                
+                if(b === true ){
+                  this.presentToast("Ya tienes asignada una cita para este dia, revisa mis citas");
+                }
+
+                if(a === true){
                   this.presentToast("Su cita fue agregada con exito, Revisa tu historial de citas");
                   this.navCtrl.setRoot(HomePage);
-                }else{
                 }
+                
+                
                },(err)=>{
                 this.presentToast("Error en la conexion, intentalo mas tarde");
                });
+               }
               }
            }
           }
@@ -213,7 +257,7 @@ export class SacarCitaPage {
   }
 
   validacion(){
-    console.log(this.global.id_usuario);
+    // console.log(this.global.id_usuario);
     this.api.getValidacion(this.global.id_usuario).subscribe((data)=>{
       this.val = data;
       

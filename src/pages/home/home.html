@@ -18,19 +18,27 @@
 <button ion-button icon-left color="danger"  (click)="misCitas()" class="btnCitas" round block>
 	<ion-icon name="list-box"></ion-icon>
 Mis citas</button>
+<!-- <br> -->
+<button *ngIf="global.admin" ion-button icon-left color="prevenir"  (click)="adminServs()" class="btnCitas" round block>
+	<ion-icon name="list-box"></ion-icon>
+Administrar servicios</button>
+<!-- <br> -->
+<!-- <button ion-button icon-left color="energized"  (click)="misCitas()" class="btnCitas" round block>
+	<ion-icon name="list-box"></ion-icon>
+Mi cuenta</button> -->
 
-<p class="p1"> Encuentra el servicio que estas buscando </p>
 
 
-  <ion-item>
+
+  <!-- <ion-item>
     <ion-label>Categorias</ion-label>
     <ion-select multiple="false" (ionChange)="categoriaSelect($event);">
       <ion-option *ngFor="let cate of ctgas;let i = index" [value]="cate.id_categoria"  >{{cate.nombre}}</ion-option>     
     </ion-select>
   </ion-item>
-<ion-input type="text" placeholder="¿ Que estas buscando ?" [(ngModel)]="busqueda"></ion-input>
-<p class="p1"> ¿Donde quieres ser atendido? </p>
+<ion-input type="text" placeholder="¿ Que estas buscando ?" [(ngModel)]="busqueda"></ion-input> -->
 
+<p class="p1"> Encuentra el servicio que estas buscando </p>
 <ion-item>
   <ion-label>Departamento</ion-label>
   <ion-select multiple="false" (ionChange)="departamentoSelect($event);">
@@ -45,7 +53,7 @@ Mis citas</button>
     
   </ion-select>
 </ion-item>
-<br>
+<p class="p1"> ¿Donde quieres ser atendido? </p>
 <button ion-button icon-left color="danger" class="btnCitas" round block (click)="buscar()">
 	<ion-icon name="search"></ion-icon>
     Buscar proveedor

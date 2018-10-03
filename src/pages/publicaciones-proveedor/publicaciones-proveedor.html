@@ -19,10 +19,11 @@
   <br>
   <div class="carta" *ngFor="let servicio of inf">
   <ion-card>
-    <h2>{{servicio.nombre}}</h2>
-    <p>servicio.descuento</p>
-    <p>servicio.precio</p>
-    <p>Preveenir expres</p>
+    <ion-card-header><h2>{{servicio.nombre}}</h2></ion-card-header>
+    
+    <p>Descuento : {{servicio.descuento}}%</p>
+    <p>Precio a Particulares : ${{servicio.precio}}</p>
+    <p>Precio clientes Prevenir : ${{servicio.precio_cliente_prevenir}}</p>
     <button ion-button icon-left (click)="goToService(servicio)">
       <ion-icon name="eye"></ion-icon>
       Ver</button>

@@ -143,6 +143,10 @@ export class ApiProvider {
     getValidacion(id){
       return this.http.get(this.apiUrl+'/datos/'+id);
     }
+
+    getBusqueda(idm,idc){
+      return this.http.get(this.apiUrl+'/services/'+idm+'/'+idc);
+    }
      /////////////////////////////////////// DELETE ///////////////////////////////////////////////
 
      dltService(id){
@@ -183,7 +187,51 @@ export class ApiProvider {
       });
      }
 
+     dltCitaProvedor(idServicio, idProvedor){
+
+      return new Promise((resolve, reject) => {
+        let headers = new HttpHeaders();
+        headers.append('Content-Type', 'application/json');
+        this.token = localStorage.getItem('token');
+        this.token = this.token.split('"');
+        this.token2=this.token[1];
+          this.http.delete(this.apiUrl+'/eventss/'+idServicio+'/'+idProvedor+"?token="+this.token2,{headers : headers})
+            .subscribe(res => {
+              
+              console.log(res);
+              resolve(res);
+            }, (err) => {
+              reject(err);
+            });
+      });
+
+     }
+
     /////////////////////////////////////// PUT ///////////////////////////////////////////////
+
+    editAvatar(foto,id,admin){
+
+      return new Promise((resolve, reject) => {
+
+        let headers = new HttpHeaders();
+        headers.append('Content-Type', 'application/json');
+        this.token = localStorage.getItem('token');
+        this.token = this.token.split('"');
+        this.token2=this.token[1];
+        
+        let j = {foto:foto,id:id,admin:admin};
+        console.log(j);
+          this.http.put(this.apiUrl+'/fotou/'+"?token="+this.token2,j,{headers : headers})
+            .subscribe(res => {
+              console.log("ENTRE AL PROVIDER");
+              console.log(res);
+              resolve(res);
+            }, (err) => {
+              reject(err);
+            });
+      });
+    }
+
 
     editService(datos){
       return new Promise((resolve, reject) => {
@@ -242,6 +290,22 @@ export class ApiProvider {
             .subscribe(res => {
               console.log("ENTRE AL PROVIDER");
               console.log(res);
+              resolve(res);
+            }, (err) => {
+              reject(err);
+            });
+      });
+    }
+
+    enviarMensaje(mensaje){
+
+      return new Promise((resolve, reject) => {
+
+        let headers = new HttpHeaders();
+        headers.append('Content-Type', 'application/json');
+
+          this.http.put(this.apiUrl+'/sendm',mensaje, {headers : headers})
+            .subscribe(res => {
               resolve(res);
             }, (err) => {
               reject(err);

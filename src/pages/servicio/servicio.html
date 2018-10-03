@@ -45,7 +45,7 @@
 	<br>
 	<p><ion-icon name="thumbs-up">&nbsp;Descuento</ion-icon>&nbsp;{{servicio.descuento}}%</p>
 	<br>
-	<h3>Total : ${{servicio.precio_cliente_prevenir}}</h3>
+	<h3>Precio clientes prevenir : ${{servicio.precio_cliente_prevenir}}</h3>
 	<br>
 	<h4>Duracion aprox. en minutos : {{servicio.duracion}}</h4>
 	<br>
@@ -77,9 +77,18 @@
 		</ion-item>
 		
 		<form [formGroup]="datos" (ngSubmit)="mensaje()"  novalidate>
-		<ion-input type="text" placeholder="Nombre" readonly></ion-input>
-  		<ion-input type="text" placeholder="asdasda@gmail.com" readonly></ion-input>	
-  		<ion-textarea type="text" class="txt_area" formControlName="descripcion" placeholder="Mensaje"></ion-textarea>
+		<ion-item><ion-input class="inp" type="text"  readonly [value]="nombreUser"></ion-input></ion-item>
+		<ion-item><ion-input class="inp" type="email" readonly [value]="correoUser"></ion-input></ion-item>
+		<ion-item>
+			<ion-label>Asunto</ion-label>
+				<ion-select (ionChange)="asunto($event);">
+					<ion-option value="Consulta">Consulta</ion-option>
+					<ion-option value="Pregunta">Pregunta</ion-option>
+					<ion-option value="Comentario">Comentario</ion-option>
+				</ion-select>
+		</ion-item>
+		
+		<ion-textarea type="text" class="txt_area" formControlName="descripcion" rows="5"  placeholder="Escribe aqui tu mensaje"></ion-textarea>
   		<button ion-button icon-left color="danger" class="btnCitas" [disabled]="!this.datos.valid" round block>
 	    <ion-icon name="mail"></ion-icon>
         Mensaje
@@ -92,5 +101,6 @@
 	<button ion-fab icon-center (click)="sacarCita(servicio.id_servicio)" >
 		<ion-icon name="medkit"></ion-icon>
 	</button>
+
 </ion-fab>
 </ion-content>

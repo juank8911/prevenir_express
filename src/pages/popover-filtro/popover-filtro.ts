@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,ViewController,ToastController } from 'ionic-angular';
 import {ApiProvider} from '../../providers/api/api';
 
 /**
@@ -24,7 +24,7 @@ export class PopoverFiltroPage {
   event;
   
   constructor(public navCtrl: NavController, public navParams: NavParams, private api:ApiProvider,
-    public viewCtrl: ViewController) {
+    public viewCtrl: ViewController,private toastCtrl:ToastController) {
   }
 
   ionViewDidLoad() {
@@ -68,7 +68,38 @@ export class PopoverFiltroPage {
   }
 
   buscar(){
-    this.event={categoria:this.cateSelect, departamento:this.dptmSelect, municipio:this.mncpSelect};
-    this.viewCtrl.dismiss(this.event);
+    
+    if(!this.cateSelect){
+      // console.log("categoria undifined");
+      if(!this.mncpSelect)
+      {
+        this.presentToast("Selecciona un municipio");
+      }else{
+        this.event={categoria:0, municipio:this.mncpSelect};
+        this.viewCtrl.dismiss(this.event); 
+      }
+      
+    }else{
+      if(!this.mncpSelect){
+          this.presentToast("Selecciona un municipio");
+      }else{
+        this.event={categoria:this.cateSelect, municipio:this.mncpSelect};
+        this.viewCtrl.dismiss(this.event);
+      }
+      
+    }
+    
+  }
+  
+  cerrar(){
+    this.viewCtrl.dismiss();
+  }
+
+  presentToast(msg) {
+    let toast = this.toastCtrl.create({
+      message: msg,
+      duration: 3000
+    });
+    toast.present();
   }
 }

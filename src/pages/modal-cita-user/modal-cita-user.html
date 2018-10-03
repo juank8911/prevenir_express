@@ -1,0 +1,41 @@
+<!--
+  Generated template for the ModalCitaUserPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+      <ion-buttons start>
+          <button ion-button icon-only (click)="close()">
+            <ion-icon name="close"></ion-icon>
+          </button>
+        </ion-buttons>
+    <ion-title>Información</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <div class="img">
+        <img id="userImg" [src]="avatar" alt="nd">
+      </div>
+<h1 class="h1">{{nombreProvedor}}</h1>
+<div class="card">
+      <ion-card>
+        <ion-card-content>
+          <h2>Servicio : {{info.nombre}}</h2>
+          <h2>Numero de contacto : {{telefonoProvedor}}</h2>
+          <h2>Dirección : {{direccionProvedor}}</h2>
+          <h2>Fecha cita : {{info.fecha}}</h2>
+          <h2>Hora cita : {{info.hora}}</h2>
+          <br>
+          <h2>* Recuerda llegar 15 minutos antes de la cita</h2>
+        </ion-card-content>
+      </ion-card>
+      </div>
+
+      <button class="hc" ion-button disabled>Hoja de vida Medico</button>
+</ion-content>

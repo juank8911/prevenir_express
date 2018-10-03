@@ -31,7 +31,7 @@ export class FormularioRegistroAdminPage {
   key : string = "token";
   keyId : string = "id";
   keyAdmin : string = "admin";
-  userData = {"id":"","email":"","pssw":"","nombre":"" ,"esAdmin":"","face":"","direccion":"","nit":"","tel":"","wsp":""};
+  // userData = {"id":"","email":"","pssw":"","nombre":"" ,"esAdmin":"","face":"","direccion":"","nit":"","tel":"","wsp":""};
   private datos : FormGroup;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private fb:Facebook,
@@ -39,7 +39,7 @@ export class FormularioRegistroAdminPage {
     public loadingCtrl: LoadingController) {
 
       this.datos = this.formBuilder.group({
-        nombre: ['', [Validators.required, Validators.minLength(4),Validators.maxLength(20)]],
+        nombre: ['', [Validators.required, Validators.minLength(4),Validators.maxLength(40)]],
         email: ['', [Validators.required,Validators.email,Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')]],
         pssw: ['',[Validators.required,Validators.minLength(8)]],
         direccion: ['',[Validators.required]],
@@ -69,13 +69,14 @@ export class FormularioRegistroAdminPage {
       this.esAdmin=true;
       this.face=false;
       let hashed = CryptoJS.SHA512(this.datos.value.pssw).toString(CryptoJS.enc.Hex);
-      this.userData = {"id":this.datos.value.id,"email":this.datos.value.email,"pssw":hashed,
+      let userData = {"id":this.datos.value.id,"email":this.datos.value.email,"pssw":hashed,
       "nombre":this.datos.value.nombre,"esAdmin":this.esAdmin,"face":this.face,"direccion":this.datos.value.direccion,
       "nit":this.datos.value.id,"tel":this.datos.value.tel,"wsp":this.datos.value.wsp};
 
-      console.log(this.userData);
+      console.log(userData);
 
-      this.auth.postLogin(this.userData,"/register").then((result)=>{
+
+      this.auth.postLogin(userData,"/register").then((result)=>{
         
          this.resposeData = result;
         var r1 = result[0];
@@ -83,8 +84,8 @@ export class FormularioRegistroAdminPage {
         // console.log(this.resposeData);
         console.log("registro11122131");
         console.log(this.resposeData);
-        console.log(r1);
-        console.log(r2);
+        // console.log(r1);
+        // console.log(r2);
         
         ///////////////////////////verificar si el usuario no existe/////////////////
         if(r1.existe==false){  
@@ -98,7 +99,13 @@ export class FormularioRegistroAdminPage {
         }
         else{
           this.loading.dismiss();
-          this.presentToast("El correo ya se encuentra registrado");
+          let campo = r2[0].campo;
+          if(campo === "email"){
+            this.presentToast("El correo ya se encuentra registrado");
+          }else{
+            this.presentToast("La cedula ya se encuentra registrado");
+          }
+          
         }
     
       },(error)=>{

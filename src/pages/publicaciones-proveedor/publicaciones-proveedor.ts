@@ -37,7 +37,7 @@ public inf =[];
     this.api.getPublicacionesProveedor(id).subscribe((res)=>{
       this.publicaciones = res;
       this.info();
-      console.log(this.publicaciones);
+      // console.log(this.publicaciones);
     },(err)=>{
       console.log(err);
     });

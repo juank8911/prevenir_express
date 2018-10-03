@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,ModalController,AlertController,ToastController  } from 'ionic-angular';
 import * as moment from 'moment';
 import {ApiProvider} from '../../providers/api/api';
 import {ModalCitaPage} from '../modal-cita/modal-cita';
+import {Global} from '../../app/global';
 
 
 /**
@@ -29,7 +30,8 @@ export class CitasProvedorPage {
   nombre;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public api:ApiProvider,
-    private modalCtrl: ModalController) {
+    private modalCtrl: ModalController,private alertCtrl: AlertController, private global:Global,
+    private toastCtrl:ToastController) {
 
     this.id_servicios = this.navParams.get('id_servicios');
     this.nombre = this.navParams.get('nombre');
@@ -122,6 +124,53 @@ export class CitasProvedorPage {
           console.log(data);
         });
     console.log(info);
+  }
+
+  eliminar(idEvent){
+
+    
+
+    let alert = this.alertCtrl.create({
+      title: 'Confirmación',
+      message: '¿Estas seguro que deseas eliminar esta cita?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            
+          }
+        },
+        {
+          text: 'Confirmar',
+          handler: () => {
+            
+            this.api.dltCitaProvedor(idEvent,this.global.id_usuario).then((data)=>{
+              console.log(data);
+              let a = data;
+              a = a[0].borrado;
+              console.log(a);
+              if (a === true){
+                this.presentToast("Su cita fue eliminada con exito");
+                this.horarios();
+              }
+
+            },(err)=>{
+              console.log(err);
+            });
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+  presentToast(msg) {
+    let toast = this.toastCtrl.create({
+      message: msg,
+      duration: 2000
+    });
+    toast.present();
   }
 
 }

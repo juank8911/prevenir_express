@@ -81,10 +81,12 @@ export class FormularioRegistroPage {
             console.log(this.esAdmin);
             
             
-            this.userData={"id":this.user.id,"email":this.user.email,"identificacion":"","pssw":this.hashed,
-            "nombre":this.user.first_name,"apellido":this.user.last_name,"esAdmin":this.esAdmin,"face":this.face};
+            // this.userData={"id":this.user.id,"email":this.user.email,"identificacion":"","pssw":this.hashed,
+            // "nombre":this.user.first_name,"apellido":this.user.last_name,"esAdmin":this.esAdmin,"face":this.face};
             
-            console.log(this.userData);
+            let user ={"id":this.user.id,"email":this.user.email,"identificacion":"","pssw":this.hashed,
+            "nombre":this.user.first_name,"apellido":this.user.last_name,"esAdmin":this.esAdmin,"face":this.face,avatar:this.user.picture.data.url};
+            console.log(user);
 
             /////////////////////////Envio datos a la API///////////////////////////////
             this.loading = this.loadingCtrl.create({
@@ -93,7 +95,7 @@ export class FormularioRegistroPage {
               duration: 3000
             });
             this.loading.present();
-            this.auth.postLogin(this.userData,"/register").then((result)=>{
+            this.auth.postLogin(user,"/register").then((result)=>{
               this.resposeData = result;
               console.log(this.resposeData);
 
@@ -165,17 +167,18 @@ export class FormularioRegistroPage {
            this.esAdmin = false;
            this.face = false;
            this.hashed = CryptoJS.SHA512(this.datos.value.pssw).toString(CryptoJS.enc.Hex);
-           this.userData = {"id":this.datos.value.id,"email":this.datos.value.email, "identificacion":this.datos.value.id,
+
+           let userData = {"id":this.datos.value.id,"email":this.datos.value.email, "identificacion":this.datos.value.id,
            "pssw":this.hashed,"nombre":this.datos.value.nombre,
            "apellido":this.datos.value.apellido,"esAdmin":this.esAdmin,"face":this.face};
            
            
-           console.log(this.userData);
-           this.auth.postLogin(this.userData,"/register").then((result)=>{
+           console.log(userData);
+           this.auth.postLogin(userData,"/register").then((result)=>{
            this.resposeData = result;
            
             var re1 = result[0];
-            var re2 = result[0];
+            var re2 = result[1];
             console.log("resulta222222222");
             console.log(re1);
             console.log(re2);
@@ -192,7 +195,15 @@ export class FormularioRegistroPage {
             }
             else{
               this.loading.dismiss();
-              this.presentToast("El correo ya se encuentra registrado");
+              
+
+              let campo = this.resposeData[1];
+              campo = campo[0].campo;
+              if(campo === "email"){
+                this.presentToast("El correo ya se encuentra registrado");
+              }else{
+                this.presentToast("La cedula ya se encuentra registrado");
+              }
             }
         
           },(error)=>{

@@ -25,37 +25,49 @@ export class ServiciosPage {
  busqueda :string ="";
  inf = [];
  url;
+ mostrar;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public api:ApiProvider,
     private popoverCtr : PopoverController,public loadingCtrl: LoadingController,private toastCtrl:ToastController,
     private global : Global) {
 
       this.url = this.global.apiUrl;
+      this.services = this.navParams.get('servicios');
+      this.mostrar = this.navParams.get('vacio');
+
+      console.log(this.services);
+      console.log(this.mostrar);
+
+      if(this.mostrar === false){
+        this.info();
+      }
+
 
   }
 
   ionViewDidLoad() {
-    this.servicios();
+    // this.servicios();
   }
 
-  servicios(){
-    this.loading = this.loadingCtrl.create({
-      spinner: 'hide',
-      content: "Espera un momento<br>estamos cargando información... ",
-      duration: 3000
-    });
-    this.loading.present();
-    this.api.getServicios().subscribe((data)=>{
-      this.services=data;
-      // console.log(this.services);
-      this.info();
-      this.loading.dismiss();
+  // servicios(){
+  //   this.loading = this.loadingCtrl.create({
+  //     spinner: 'hide',
+  //     content: "Espera un momento<br>estamos cargando información... ",
+  //     duration: 3000
+  //   });
+  //   this.loading.present();
+  //   this.api.getServicios().subscribe((data)=>{
+  //     this.services=data;
+  //     // console.log(this.services);
+  //     this.info();
+  //     this.loading.dismiss();
       
-    },(error)=>{
-      this.loading.dismiss();
-      this.presentToast("Error en la conexión intentalo más tarde")
-      console.log(error);
-    });
-  }
+  //   },(error)=>{
+  //     this.loading.dismiss();
+  //     this.presentToast("Error en la conexión intentalo más tarde")
+  //     console.log(error);
+  //   });
+  // }
 
   info(){
 
@@ -76,6 +88,7 @@ export class ServiciosPage {
       
       fot = fot.foto[0];
       fot = this.url+fot.ruta;
+      // console.log(fot.ruta);
       
       this.inf.push({categoria:categoria,descuento:descuento,nombre:nombre,descripcion:descripcion,foto:fot,
                       id_servicio:id_servicios,id_provedores:id_provedores, duracion:duracion,precio:precio,
@@ -95,14 +108,16 @@ export class ServiciosPage {
      
      );
     }else{
-      this.servicios();
+      this.inf=[];
+      this.info();
     }
 
 
 }
 
 cancel(ev:any){
-  this.servicios();
+  this.inf=[];
+  this.info();
  }
 
   
@@ -116,7 +131,40 @@ cancel(ev:any){
     let popover = this.popoverCtr.create(PopoverFiltroPage);
     popover.present({ev : event});
     popover.onDidDismiss((data)=>{
-      console.log(data);
+     
+      if(!data)
+      {
+        console.log("No hay datos");
+      }else{
+        this.loading = this.loadingCtrl.create({
+              spinner: 'hide',
+              content: "Espera un momento<br>estamos cargando información... ",
+              duration: 3000
+            });
+            this.loading.present();
+
+        this.api.getBusqueda(data.municipio,data.categoria).subscribe((res)=>{
+          let a = res[0].vacio;
+          if (a === true){
+            this.loading.dismiss();
+            this.mostrar = true;
+          }else{
+            this.mostrar = false;
+            this.inf = [];
+            this.loading.dismiss();
+            this.services = res;
+            this.info();
+
+          }
+
+        },(err)=>{
+          console.log(err);
+        });
+      }
+
+
+
+
     });
   } 
 

@@ -16,14 +16,15 @@
 
 <ion-content padding>
 <div class="img">
-  <img id="userImg" [src]="foto" alt="nd">
+  <img *ngIf="!base64Image" id="userImg" [src]="foto" alt="nd">
+  <img *ngIf="base64Image" id="userImg" [src]="base64Image" alt="nd">
   <ion-fab >
     <button ion-fab mini (click)="openGalery()">
       <ion-icon name="cloud-upload"></ion-icon>
     </button>
   </ion-fab>
 </div>
-<button icon-left ion-button block round>
+<button *ngIf="base64Image" icon-left ion-button block round (click)="guardarAvatar()">
   <ion-icon name="archive"></ion-icon>
   Guardar Avatar</button>
 
@@ -65,7 +66,7 @@
   <div class="contacto">
     <h3>Datos de contacto</h3>
     <ion-item>
-      <ion-label>Fecha nacimiento</ion-label>
+      <ion-label>Fecha nacimiento *</ion-label>
       <ion-datetime *ngIf="!fechaNacimiento" displayFormat="MM/DD/YYYY" formControlName="fecha"></ion-datetime>
       <ion-input type="text" *ngIf="fechaNacimiento" formControlName="fecha2" readonly></ion-input>
     </ion-item>
@@ -73,7 +74,11 @@
             <ion-label>
               <ion-icon name="card"></ion-icon>
             </ion-label>
-            <ion-input placeholder="igresa tu identificación" type="number" formControlName="identificacion"></ion-input>
+            <ion-input placeholder="* igresa tu identificación" type="number" formControlName="identificacion"></ion-input>
+          </ion-item>
+          <ion-item *ngIf="datosUser.get('identificacion').errors && datosUser.get('identificacion').dirty">
+            <p color="danger" ion-text *ngIf="datosUser.get('identificacion').hasError('required')">* El campo es requerido</p>
+            
           </ion-item>
           <ion-item>
               <ion-label>
@@ -85,8 +90,12 @@
                 <ion-label>
                   <ion-icon name="call"></ion-icon>
                 </ion-label>
-                <ion-input placeholder="igresa tu telefono" type="number" formControlName="telefono"></ion-input>
+                <ion-input placeholder="ingresa tu numero de contacto *" type="number" formControlName="telefono"></ion-input>
               </ion-item>
+              <ion-item *ngIf="datosUser.get('telefono').errors && datosUser.get('telefono').dirty">
+                  <p color="danger" ion-text *ngIf="datosUser.get('telefono').hasError('required')">* El campo es requerido</p>
+                  <p color="danger" ion-text *ngIf="datosUser.get('telefono').hasError('required')">* El campo solo acepta numeros</p>
+                </ion-item>
               <ion-item>
                   <ion-label>
                     <ion-icon name="logo-whatsapp"></ion-icon>

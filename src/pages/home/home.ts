@@ -1,9 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, Slides,NavParams } from 'ionic-angular';
+import { NavController, Slides,NavParams,ToastController,Loading,
+  LoadingController } from 'ionic-angular';
 import { CitasPage } from '../citas/citas';
 import {Global} from '../../app/global';
 import { Storage } from '@ionic/storage';
 import {ApiProvider} from '../../providers/api/api';
+import {ListadoPublicacionesPage} from '../listado-publicaciones/listado-publicaciones';
+import {ServiciosPage} from '../servicios/servicios'
  
 @Component({
   selector: 'page-home',
@@ -30,13 +33,13 @@ public dptms;
 public cateSelect;
 public ctgas;
 public split;
-busqueda:string="";
+// busqueda:string="";
 provedor;
 usuario;
 foto;
 nombre;
 info;
-
+loading: Loading;
 
 
 
@@ -48,13 +51,16 @@ info;
 
   
 
-  constructor(public navCtrl: NavController,public global:Global, public navParams:NavParams, private api:ApiProvider) {
+  constructor(public navCtrl: NavController,public global:Global, public navParams:NavParams, private api:ApiProvider,
+    private toastCtrl:ToastController,public loadingCtrl: LoadingController) {
   
 
  
   }
   ionViewDidEnter() {
     this.inicio();
+
+    
 }
 
   inicio(){
@@ -70,14 +76,18 @@ info;
      this.datosProvedor();
     }
     else{
-      console.log("Entro aquiii!")
+      // console.log("Entro aquiii!")
      this.global.admin=false;
      this.datosUser();
      
   }
 
-  console.log("APPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP!")
+  // console.log("APPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP!")
   console.log(this.global);
+  }
+
+  adminServs(){
+    this.navCtrl.push(ListadoPublicacionesPage);
   }
 
   departamentos(){
@@ -92,7 +102,7 @@ info;
 
   departamentoSelect(selectedValue: any){
     this.dptmSelect = selectedValue;
-    console.log(selectedValue);
+    // console.log(selectedValue);
     this.api.getMunicipio(selectedValue).subscribe((data)=>{
       this.mncps = data;
       // console.log(data);
@@ -131,8 +141,42 @@ info;
   }
 
   buscar(){
-    let consulta = {busqueda:this.busqueda,categoria:this.cateSelect, municipio:this.mncpSelect, departamento:this.dptmSelect};
-    console.log(consulta);
+
+    if(!this.mncpSelect){
+        this.presentToast("Selecciona un municipio");
+    }else{
+      // busqueda:this.busqueda,
+      this.loading = this.loadingCtrl.create({
+        spinner: 'hide',
+        content: "Espera un momento<br>estamos cargando información... ",
+        duration: 3000
+      });
+      this.loading.present();
+      this.api.getBusqueda(this.mncpSelect,0).subscribe((data)=>{
+        console.log(data);
+        let a = data[0];
+        if(a.vacio === true){
+          this.loading.dismiss();
+          this.navCtrl.push(ServiciosPage,{servicios:data,vacio:true});
+        }else{
+          this.loading.dismiss();
+          this.navCtrl.push(ServiciosPage,{servicios:data, vacio:false});
+        }
+        
+      },(err)=>{
+        console.log(err);
+      });
+
+    }
+    
+  }
+
+  presentToast(msg) {
+    let toast = this.toastCtrl.create({
+      message: msg,
+      duration: 3000
+    });
+    toast.present();
   }
 
   datosUser(){
@@ -142,7 +186,7 @@ info;
       this.global.infoPerfil = this.usuario;
   
       this.info = this.global.infoPerfil;
-      this.foto = this.global.apiUrl+this.info.avatar;
+      this.foto = this.info.avatar;
       this.nombre = this.info.nombre;
       this.global.foto = this.foto;
       this.global.nombre = this.nombre;

@@ -27,12 +27,20 @@
     <ion-searchbar (ionInput)="getItems($event)" (ionCancel)="cancel($event)" [ngModel]="busqueda" placeholder="Buscar"></ion-searchbar>
     <!-- <ion-searchbar (ionCancel)="cancel($event)" [ngModel]="busqueda" placeholder="Buscar"></ion-searchbar> -->
   </div>
+  <h4 class="h4" *ngIf="mostrar">No se encontraron resultados</h4>
   <div>
     
+    
+
     <ion-list>
     <button ion-item *ngFor="let servicio of inf " icon-left (click)="goToServicio(servicio)" color="white">
         <ion-card>
-            <img [src]="servicio.foto" alt="" class="img">
+          <ion-grid>
+            <ion-row><ion-col>
+                <img [src]="servicio.foto" alt="" class="img">
+            </ion-col></ion-row>
+           
+            <ion-row>
             <br>
             <br>
             <h1>{{servicio.nombre}}</h1>
@@ -41,8 +49,11 @@
             <br>
             <h2 >Categoria:&nbsp; {{servicio.categoria}}</h2>
             <p>{{ servicio.id_servicios }}</p>
-            <p >{{ servicio.descripcion }}</p>
+            <h3 >{{ servicio.descripcion }}</h3>
           </div>
+        </ion-row>
+  
+        </ion-grid>
           </ion-card>
     </button>     
     </ion-list>

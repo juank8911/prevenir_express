@@ -111,10 +111,11 @@ export class WelcomePage {
             this.user = data;
             // this.pssw = this.user.id;
             this.hashed = CryptoJS.SHA512(this.user.id).toString(CryptoJS.enc.Hex);
-            this.userData={"email":this.user.email,"pssw":this.hashed};
-            
+            // this.userData={"email":this.user.email,"pssw":this.hashed};   
+            let user={email:this.user.email, pssw:this.hashed, avatar:this.user.picture.data.url}
            
-            console.log(this.userData);
+            console.log("USERRRRRRRRRRRRR");
+            console.log(user);
 
             /////////////////////////Envio datos a la API///////////////////////////////
             this.loading = this.loadingCtrl.create({
@@ -123,7 +124,7 @@ export class WelcomePage {
               duration: 3000
             });
             this.loading.present();
-            this.auth.postLogin(this.userData,"/login").then((result)=>{
+            this.auth.postLogin(user,"/login").then((result)=>{
               this.resposeData = result;
               console.log(this.resposeData);
               if(this.resposeData.login  === true){ 

@@ -337,7 +337,7 @@
         <h2>Cuentanos más !</h2>
         <ion-item>
           <ion-label>Categorias</ion-label>
-          <ion-select multiple="false" (ionChange)="categoriaSelect($event);">
+          <ion-select multiple="false" (ionChange)="categoriaSelect($event);" class="selectCategoria">
             <ion-option *ngFor="let cate of ctgas;let i = index" [value]="cate.id_categoria"  >{{cate.nombre}}</ion-option>     
           </ion-select>
         </ion-item>
@@ -354,6 +354,7 @@
             <ion-item *ngIf="datos.get('nombre').errors && datos.get('nombre').dirty">
               <p color="danger" ion-text *ngIf="datos.get('nombre').hasError('required')">* El campo es requerido</p>
               <p color="danger" ion-text *ngIf="datos.get('nombre').hasError('minlength')">Cantidad minima de caracteres (4)</p>
+              <p color="danger" ion-text *ngIf="datos.get('nombre').hasError('minlength')">Cantidad maxima de caracteres (50)</p>
             </ion-item>
           <ion-item>
             <ion-label floating>
@@ -420,7 +421,7 @@
     
         <!-- [disabled]="!this.datos.valid" -->
       <ion-item>
-          <button *ngIf="!editar" ion-button icon-left block round >
+          <button *ngIf="!editar" ion-button icon-left block round  [disabled]="!this.datos.valid">
             <ion-icon name="send"></ion-icon>
             Registrar servicio
           </button>
