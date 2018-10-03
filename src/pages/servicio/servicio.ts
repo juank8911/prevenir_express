@@ -5,6 +5,29 @@ import { PublicacionesProveedorPage } from '../publicaciones-proveedor/publicaci
 import {ApiProvider} from '../../providers/api/api';
 import {Validators, FormBuilder, FormGroup,FormControl } from '@angular/forms';
 import {Global} from '../../app/global';
+// import { Pipe, PipeTransform } from '@angular/core';
+// import {DomSanitizer} from '@angular/platform-browser';
+//
+// /**
+//  * Generated class for the YoutubePipe pipe.
+//  *
+//  * See https://angular.io/api/core/Pipe for more info on Angular Pipes.
+//  */
+// @Pipe({
+//   name: 'youtube',
+// })
+// export class YoutubePipe implements PipeTransform {
+//   /**
+//    * Takes a value and makes it lowercase.
+//    */
+//
+//    constructor(private dom:DomSanitizer){
+//
+//    }
+//   transform(value) {
+//    return this.dom.bypassSecurityTrustResourceUrl(value);
+//   }
+// }
 
 /**
  * Generated class for the ServicioPage page.
@@ -19,7 +42,7 @@ import {Global} from '../../app/global';
   templateUrl: 'servicio.html',
 })
 export class ServicioPage {
- 
+
  public video;
  servicio : any;
  public id_prov;
@@ -47,12 +70,12 @@ export class ServicioPage {
       // this.user();
       this.servicio = navParams.get('servicio');
       console.log(this.servicio);
-      
+
       this.getProveedor();
       this.getFotos();
 
-    this.datos = this.formBuilder.group({                 
-      descripcion: ['',[Validators.required,Validators.minLength(15)]],    
+    this.datos = this.formBuilder.group({
+      descripcion: ['',[Validators.required,Validators.minLength(15)]],
     });
     if(!this.servicio.video){
       this.video = "https://www.youtube.com/embed/4Z4TxFh1tO8";
@@ -60,12 +83,12 @@ export class ServicioPage {
     else{
       this.video= "https://www.youtube.com/embed/"+this.servicio.video;
     }
-   
-    
+
+
   }
 
   getFotos(){
-    
+
       let fotos = this.servicio.fotos;
       // console.log("AQUIIIIIIIIIIIIIII");
       // console.log(fotos.length);
@@ -79,7 +102,7 @@ export class ServicioPage {
   }
 
   user(){
-      
+
       this.api.getUser(this.global.id_usuario).subscribe((data)=>{
         this.usr = data;
         console.log(this.usr);
@@ -111,7 +134,7 @@ export class ServicioPage {
       this.logo = this.global.apiUrl +this.prov.avatar;
       this.id = this.prov.id_provedor;
       this.correoProv = this.prov.correo;
-      
+
     },(error)=>{
       console.log(error);
     });

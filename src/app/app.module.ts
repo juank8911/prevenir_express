@@ -58,6 +58,8 @@ import {UserPageModule} from '../pages/user/user.module';
 import {WelcomePageModule} from '../pages/welcome/welcome.module';
 import {ServicioPageModule} from '../pages/servicio/servicio.module';
 import {TerminosPageModule} from '../pages/terminos/terminos.module';
+import {PipesModule} from '../pipes/pipes.module';
+import { ServiciosPageModule } from '../pages/servicios/servicios.module';
 
 
 
@@ -69,7 +71,7 @@ import {TerminosPageModule} from '../pages/terminos/terminos.module';
     // FilterPipe,
     HomePage,
     TabsPage,
-    // YoutubePipe,
+    //YoutubePipe,
     // ContactenosPage,
     // ServiciosPage,
     // TerminosPage,
@@ -89,7 +91,7 @@ import {TerminosPageModule} from '../pages/terminos/terminos.module';
     // PopoverFiltroPage,
     // CitasProvedorPage,
     // ModalCitaUserPage
-  
+
 
   ],
   imports: [
@@ -116,8 +118,10 @@ import {TerminosPageModule} from '../pages/terminos/terminos.module';
     WelcomePageModule,
     ServicioPageModule,
     TerminosPageModule,
-    
-  
+    ServiciosPageModule,
+    //PipesModule,
+
+
 
   ],
   bootstrap: [IonicApp],
@@ -144,7 +148,7 @@ import {TerminosPageModule} from '../pages/terminos/terminos.module';
     PopoverFiltroPage,
     CitasProvedorPage,
     ModalCitaUserPage,
-    
+
   ],
   providers: [
     StatusBar,
